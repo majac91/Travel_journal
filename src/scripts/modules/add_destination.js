@@ -1,4 +1,4 @@
-import destinationsList from "../destinationList.js";
+import destinationsList, { addDestination } from "../destinationList.js";
 import events from "./pubsub.js";
 
 let form;
@@ -8,9 +8,9 @@ let radioBucketlist;
 let cityInput;
 let countryInput;
 let photoInput;
-// let storage;
 //new list item state before the item is added
 let formState = {
+  id: Math.round(Math.random() * 100000),
   city: null,
   country: null,
   photo: null,
@@ -28,15 +28,11 @@ function cacheDom() {
 
 function bindEvents() {
   form.addEventListener("submit", (event) => {
-    addDestination();
+    addDestination(formState);
     event.preventDefault();
-    //get the index of the destination pushed to the destinationsList and publish it
-    const itemIndex = destinationsList.length - 1;
-    events.publish("destinationAdded", itemIndex);
     storeNew();
     form.reset();
   });
-  // document.addEventListener("DOMContentLoaded", loadNew);
   radioVisited.addEventListener("click", isVisited);
   radioBucketlist.addEventListener("click", isBucketlist);
   cityInput.addEventListener("change", (event) => {
@@ -56,33 +52,17 @@ function updateFormState(fieldName, value) {
 }
 
 function storeNew() {
-  localStorage.setItem("newDestination", JSON.stringify(formState));
+  // get list of destinations and parse it
+  const storedListLS = localStorage.getItem("destinations");
 
-  // // get list of destinations and parse it
-  // const storedListLS = localStorage.getItem("destinations");
-  // const storedList = JSON.parse(storedListLS);
+  const storedList = storedListLS ? JSON.parse(storedListLS) : [];
 
-  // // update the list with the new destination (formState).
-  // const newList = [...storedListLS, formState];
+  // update the list with the new destination (formState).
+  const newList = [...storedList, formState];
+  console.log(newList);
 
-  // // Replace the `destinations`, with the new list:
-  // localStorage.setItem("destinations", SON.stringify(newList));
-}
-
-// function loadNew() {
-//   let isStored = localStorage.getItem("newDestination");
-//   let data;
-//   if (isStored) {
-//     data = JSON.parse(isStored);
-//   } else {
-//     data = [];
-//   }
-//   localStorage.setItem("newDestination", data);
-// }
-
-//push new list item to destinationList
-function addDestination() {
-  return destinationsList.push(formState);
+  // Replace the `destinations`, with the new list:
+  localStorage.setItem("destinations", JSON.stringify(newList));
 }
 
 function isVisited() {

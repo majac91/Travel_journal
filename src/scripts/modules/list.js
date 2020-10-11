@@ -10,6 +10,7 @@ let bucketlist;
 let all;
 let gallery;
 let activeBtn;
+let storedList;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".buttons").children);
@@ -27,8 +28,8 @@ function bindEvents() {
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  events.subscribe("destinationAdded", (itemIndex) => {
-    const elDestination = renderDestination(destinationsList[itemIndex]);
+  events.subscribe("destinationAdded", (newItem) => {
+    const elDestination = renderDestination(newItem);
     gallery.appendChild(elDestination);
   });
 }
@@ -88,9 +89,15 @@ function renderDestination(destination) {
   return elDestination;
 }
 
+function getStoredList() {
+  // use double piple to fallback to empty array if the list is empty
+  const storedListLS = localStorage.getItem("destinations");
+  storedList = storedListLS ? JSON.parse(storedListLS) : [];
+}
+
 function render() {
   // Create DOM elements for each destination
-  destinationsList.forEach((destination) => {
+  [...destinationsList, ...storedList].forEach((destination) => {
     const elDestination = renderDestination(destination);
     gallery.appendChild(elDestination);
   });
@@ -147,6 +154,7 @@ function restoreNav() {
 
 function init() {
   cacheDom();
+  getStoredList();
   bindEvents();
   render();
 }
