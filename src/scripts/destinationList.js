@@ -276,7 +276,7 @@ const destinationsObj = {
 };
 
 const destinationsList = Object.keys(destinationsObj).map((id) => {
-  destinationsObj[id];
+  return destinationsObj[id];
   // console.log(destinationsObj[id]);
 });
 
@@ -285,5 +285,5 @@ export default destinationsList;
 //push new list item to destinationList
 export function addDestination(newItem) {
   destinationsObj[newItem.id] = newItem;
-  publish("destinationAdded", newItem);
+  events.publish("destinationAdded", newItem);
 }
