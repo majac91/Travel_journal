@@ -54,12 +54,14 @@ function updateFormState(fieldName, value) {
 function storeNew() {
   // get list of destinations and parse it
   const storedListLS = localStorage.getItem("destinations");
+  // console.log(storedListLS);
 
   const storedList = storedListLS ? JSON.parse(storedListLS) : [];
+  // console.log(typeof storedList);
 
   // update the list with the new destination (formState).
   const newList = [...storedList, formState];
-  console.log(newList);
+  // console.log(newList);
 
   // Replace the `destinations`, with the new list:
   localStorage.setItem("destinations", JSON.stringify(newList));

@@ -53,17 +53,23 @@ function renderDestination(destination) {
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
+  checkbox.classList.add("check");
 
-  //move checked items to 'visited' list
+  // move checked items to 'visited' list
   checkbox.addEventListener("click", () => {
     checkbox.parentElement.classList.add("visited");
     checkbox.parentElement.classList.remove("bucketlist");
     destination.visited = true;
     console.log(destination);
+    //store new items moved to visited list
+    const storedVisited = localStorage.getItem("newVisited");
+    let newVisitedList = storedVisited ? JSON.parse(storedVisited) : [];
+    let newVisited = [...newVisitedList, destination];
+    localStorage.setItem("newVisited", JSON.stringify(newVisited));
   });
 
-  //check all visited destinations checkboxes
-  if (destination.visited === true) {
+  //check all visited list checkboxes by default
+  if (destination.visited) {
     checkbox.setAttribute("checked", "checked");
   }
 
@@ -92,6 +98,7 @@ function renderDestination(destination) {
 function getStoredList() {
   // use double piple to fallback to empty array if the list is empty
   const storedListLS = localStorage.getItem("destinations");
+
   storedList = storedListLS ? JSON.parse(storedListLS) : [];
 }
 
