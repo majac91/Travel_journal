@@ -1,9 +1,12 @@
-import destinationsList from "../destinationList.js";
+import destinationsList, {
+  getStoredList,
+  toggleButtonVisited,
+} from "../store.js";
 import events from "./pubsub.js";
 
 // Create  and display destination lists
 
-// Set the "shared" variables among different methods:
+//Variables
 let buttons;
 let visited;
 let bucketlist;
@@ -19,6 +22,7 @@ function cacheDom() {
   all = buttons[3];
   gallery = document.querySelector(".gallery");
   activeBtn = null;
+  storedList = getStoredList();
 }
 
 function bindEvents() {
@@ -28,7 +32,7 @@ function bindEvents() {
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  events.subscribe("destinationAdded", (newItem) => {
+  events.subscribe("destinationUpdate", (newItem) => {
     const elDestination = renderDestination(newItem);
     gallery.appendChild(elDestination);
   });
@@ -56,16 +60,14 @@ function renderDestination(destination) {
   checkbox.classList.add("check");
 
   // move checked items to 'visited' list
-  checkbox.addEventListener("click", () => {
-    checkbox.parentElement.classList.add("visited");
-    checkbox.parentElement.classList.remove("bucketlist");
+
+  checkbox.addEventListener("click", (destination) => {
+    toggleButtonVisited(event);
     destination.visited = true;
-    console.log(destination);
-    //store new items moved to visited list
-    const storedVisited = localStorage.getItem("newVisited");
-    let newVisitedList = storedVisited ? JSON.parse(storedVisited) : [];
-    let newVisited = [...newVisitedList, destination];
-    localStorage.setItem("newVisited", JSON.stringify(newVisited));
+  });
+
+  checkbox.addEventListener("click", (event) => {
+    toggleButtonVisited(event, destination);
   });
 
   //check all visited list checkboxes by default
@@ -93,13 +95,6 @@ function renderDestination(destination) {
   elDestination.appendChild(figcaption);
   // Return the destination HTML
   return elDestination;
-}
-
-function getStoredList() {
-  // use double piple to fallback to empty array if the list is empty
-  const storedListLS = localStorage.getItem("destinations");
-
-  storedList = storedListLS ? JSON.parse(storedListLS) : [];
 }
 
 function render() {

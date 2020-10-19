@@ -1,4 +1,4 @@
-import destinationsList, { addDestination } from "../destinationList.js";
+import destinationsList, { addDestination } from "../store.js";
 import events from "./pubsub.js";
 
 let form;
