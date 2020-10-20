@@ -1,7 +1,7 @@
 import events from "./modules/pubsub";
 
 const destinationsObj = {
-  // //Visited
+  //Visited
   // rome123: {
   //   id: "rome123",
   //   city: "Rome",
@@ -272,7 +272,6 @@ const destinationsObj = {
 };
 
 export function getStoredList() {
-  // use double piple to fallback to empty array if the list is empty
   const storedListLS = localStorage.getItem("destinations");
 
   let storedList = storedListLS ? JSON.parse(storedListLS) : [];
@@ -284,27 +283,26 @@ let storedList = getStoredList();
 let storedKeys = storedList.map((element) => {
   return element.id;
 });
-console.log(storedKeys);
 
 export function toggleButtonVisited(event, item) {
   var checkbox = event.target;
   if (checkbox.checked) {
     checkbox.parentElement.classList.add("visited");
     checkbox.parentElement.classList.remove("bucketlist");
-    // console.log(destination.id);
   }
-
-  console.log(item.id);
+  // updatedItem = storedKeys.forEach((key) => {
   storedKeys.forEach((key) => {
-    if (item.id === key) {
+    if (item.id == key) {
       item.visited = true;
+      // const storedListLS = localStorage.getItem("destinations");
+      // const storedList = storedListLS ? JSON.parse(storedListLS) : [];
+      // let newList = [...storedList, item];
+      // // // console.log(newList);
+      // localStorage.setItem("destinations", JSON.stringify(newList));
+      return item;
     }
-    // const storedListLS = localStorage.getItem("destinations");
-    // const storedList = storedListLS ? JSON.parse(storedListLS) : [];
-    // const newList = [...storedList, destination];
-    // // console.log(newList);
-    // localStorage.setItem("destinations", JSON.stringify(newList));
   });
+  // events.publish("destinationUpdate", updatedItem);
 }
 
 const destinationsList = Object.keys(destinationsObj).map((id) => {

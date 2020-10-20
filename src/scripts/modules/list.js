@@ -36,6 +36,9 @@ function bindEvents() {
     const elDestination = renderDestination(newItem);
     gallery.appendChild(elDestination);
   });
+  // events.subscribe("destinationUpadte", (updatedItem) => {
+  //   console.log(updatedItem);
+  // });
 }
 
 function renderDestination(destination) {
@@ -62,8 +65,7 @@ function renderDestination(destination) {
   // move checked items to 'visited' list
 
   checkbox.addEventListener("click", (destination) => {
-    toggleButtonVisited(event);
-    destination.visited = true;
+    toggleButtonVisited(event, destination);
   });
 
   checkbox.addEventListener("click", (event) => {
