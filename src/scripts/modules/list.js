@@ -95,6 +95,7 @@ function renderDestination(destination) {
 }
 
 function render() {
+  gallery.textContent = "";
   // Create DOM elements for each destination
   [...destinationsList, ...Array.from(storedList)].forEach((destination) => {
     const elDestination = renderDestination(destination);
