@@ -2,13 +2,13 @@ import events from "./modules/pubsub";
 
 const destinationsObj = {
   //Visited
-  // rome123: {
-  //   id: "rome123",
-  //   city: "Rome",
-  //   country: "Italy",
-  //   photo: require("../img/rome.jpg"),
-  //   visited: true,
-  // },
+  rome123: {
+    id: "rome123",
+    city: "Rome",
+    country: "Italy",
+    photo: require("../img/rome.jpg"),
+    visited: true,
+  },
   // milan123: {
   //   id: " milan123",
   //   city: "Milan",
@@ -271,42 +271,20 @@ const destinationsObj = {
   // },
 };
 
-export function getStoredList() {
+export function toggleButtonVisited(item) {
+  item.visited = true;
+  destinationsObj[item.id] = item;
+  console.log(destinationsObj);
+
   const storedListLS = localStorage.getItem("destinations");
 
-  let storedList = storedListLS ? JSON.parse(storedListLS) : [];
-  return storedList;
-}
-
-let storedList = getStoredList();
-
-let storedKeys = storedList.map((element) => {
-  return element.id;
-});
-
-export function toggleButtonVisited(event, item) {
-  var checkbox = event.target;
-  if (checkbox.checked) {
-    checkbox.parentElement.classList.add("visited");
-    checkbox.parentElement.classList.remove("bucketlist");
-  }
-  // updatedItem = storedKeys.forEach((key) => {
-  storedKeys.forEach((key) => {
-    if (item.id == key) {
-      item.visited = true;
-      // const storedListLS = localStorage.getItem("destinations");
-      // const storedList = storedListLS ? JSON.parse(storedListLS) : [];
-      // let newList = [...storedList, item];
-      // // // console.log(newList);
-      // localStorage.setItem("destinations", JSON.stringify(newList));
-      return item;
-    }
-  });
-  // events.publish("destinationUpdate", updatedItem);
+  // let storedList = storedListLS ? JSON.parse(storedListLS) : {};
+  // let newList = { ...storedList, ...destinationsObj };
+  // console.log(newList);
+  // localStorage.setItem("destinations", JSON.stringify(newList));
 }
 
 const destinationsList = Object.keys(destinationsObj).map((id) => {
-  console.log(destinationsObj[id]);
   return destinationsObj[id];
 });
 
@@ -315,5 +293,24 @@ export default destinationsList;
 //push new list item to destinationList
 export function addDestination(newItem) {
   destinationsObj[newItem.id] = newItem;
-  events.publish("destinationUpdate", newItem);
+
+  //Save new item to Local Storage
+  const storedListLS = localStorage.getItem("destinations");
+
+  const storedList = storedListLS ? JSON.parse(storedListLS) : {};
+
+  // update the list with the new destination (formState).
+  const newList = { ...storedList, [newItem.id]: newItem };
+
+  localStorage.setItem("destinations", JSON.stringify(newList));
+
+  events.publish("destinationUpdated", newList);
+  return newList;
+}
+
+export function getStoredList() {
+  const storedListLS = localStorage.getItem("destinations");
+
+  let storedList = storedListLS ? JSON.parse(storedListLS) : [];
+  return storedList;
 }

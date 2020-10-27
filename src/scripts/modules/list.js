@@ -32,13 +32,10 @@ function bindEvents() {
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  events.subscribe("destinationUpdate", (newItem) => {
-    const elDestination = renderDestination(newItem);
-    gallery.appendChild(elDestination);
+  events.subscribe("destinationUpdated", (newList) => {
+    storedList = newList;
+    render();
   });
-  // events.subscribe("destinationUpadte", (updatedItem) => {
-  //   console.log(updatedItem);
-  // });
 }
 
 function renderDestination(destination) {
@@ -64,12 +61,10 @@ function renderDestination(destination) {
 
   // move checked items to 'visited' list
 
-  checkbox.addEventListener("click", (destination) => {
-    toggleButtonVisited(event, destination);
-  });
-
-  checkbox.addEventListener("click", (event) => {
-    toggleButtonVisited(event, destination);
+  checkbox.addEventListener("click", () => {
+    toggleButtonVisited(destination);
+    checkbox.parentElement.classList.add("visited");
+    checkbox.parentElement.classList.remove("bucketlist");
   });
 
   //check all visited list checkboxes by default
@@ -101,7 +96,7 @@ function renderDestination(destination) {
 
 function render() {
   // Create DOM elements for each destination
-  [...destinationsList, ...storedList].forEach((destination) => {
+  [...destinationsList, ...Array.from(storedList)].forEach((destination) => {
     const elDestination = renderDestination(destination);
     gallery.appendChild(elDestination);
   });
@@ -158,7 +153,6 @@ function restoreNav() {
 
 function init() {
   cacheDom();
-  getStoredList();
   bindEvents();
   render();
 }

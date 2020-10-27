@@ -30,7 +30,6 @@ function bindEvents() {
   form.addEventListener("submit", (event) => {
     addDestination(formState);
     event.preventDefault();
-    storeNew();
     form.reset();
   });
   radioVisited.addEventListener("click", isVisited);
@@ -49,22 +48,6 @@ function bindEvents() {
 //update the formState values for city, country and photo on 'change' event
 function updateFormState(fieldName, value) {
   formState[fieldName] = value;
-}
-
-function storeNew() {
-  // get list of destinations and parse it
-  const storedListLS = localStorage.getItem("destinations");
-  // console.log(storedListLS);
-
-  const storedList = storedListLS ? JSON.parse(storedListLS) : [];
-  // console.log(typeof storedList);
-
-  // update the list with the new destination (formState).
-  const newList = [...storedList, formState];
-  // console.log(newList);
-
-  // Replace the `destinations`, with the new list:
-  localStorage.setItem("destinations", JSON.stringify(newList));
 }
 
 function isVisited() {
@@ -90,3 +73,10 @@ function init() {
 
 const module = { init };
 export default module;
+
+//Check if x is an array
+// if (Array.isArray(storedList)) {
+//   console.log(true);
+// } else {
+//   console.log(false);
+// }
