@@ -33,6 +33,7 @@ function bindEvents() {
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
   events.subscribe("destinationUpdated", (newList) => {
+    location.reload();
     storedList = newList;
     render();
   });
@@ -97,7 +98,7 @@ function renderDestination(destination) {
 function render() {
   gallery.textContent = "";
   // Create DOM elements for each destination
-  [...destinationsList, ...Array.from(storedList)].forEach((destination) => {
+  storedList.forEach((destination) => {
     const elDestination = renderDestination(destination);
     gallery.appendChild(elDestination);
   });
