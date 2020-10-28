@@ -287,7 +287,7 @@ export function toggleButtonVisited(item) {
   updatedList = Object.keys(destinationsObj).map((id) => {
     return destinationsObj[id];
   });
-  //return destinationsObj modified to no longer include the changed item
+  //return destinationsObj modified to no longer include the updated item
   updatedList = updatedList.filter(function (obj) {
     return obj.id !== item.id;
   });
@@ -330,5 +330,6 @@ export function getStoredList() {
   const storedListLS = localStorage.getItem("destinations");
 
   const storedList = storedListLS ? JSON.parse(storedListLS) : [];
+  //get a single list of static and LS items
   return convertToArray({ ...destinationsObj, ...storedList });
 }

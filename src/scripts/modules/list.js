@@ -33,6 +33,7 @@ function bindEvents() {
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
   events.subscribe("destinationUpdated", (newList) => {
+    //Reload to 'fix' the list loading twice
     location.reload();
     storedList = newList;
     render();
