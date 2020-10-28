@@ -1,5 +1,4 @@
-import destinationsList, { addDestination } from "../store.js";
-import events from "./pubsub.js";
+import { addDestination } from "../store.js";
 
 let form;
 let radioBtns;
@@ -73,10 +72,3 @@ function init() {
 
 const module = { init };
 export default module;
-
-//Check if x is an array
-// if (Array.isArray(storedList)) {
-//   console.log(true);
-// } else {
-//   console.log(false);
-// }

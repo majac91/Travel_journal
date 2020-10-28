@@ -1,7 +1,4 @@
-import destinationsList, {
-  getStoredList,
-  toggleButtonVisited,
-} from "../store.js";
+import { getStoredList, toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
 
 // Create  and display destination lists
@@ -33,8 +30,6 @@ function bindEvents() {
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
   events.subscribe("destinationUpdated", (newList) => {
-    //Reload to 'fix' the list loading twice
-    location.reload();
     storedList = newList;
     render();
   });
