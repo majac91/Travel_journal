@@ -9,11 +9,12 @@ let countryInput;
 let photoInput;
 //new list item state before the item is added
 let formState = {
-  id: Math.round(Math.random() * 100000),
+  // id: Math.round(Math.random() * 100000),
   city: null,
   country: null,
   photo: null,
 };
+console.log(formState);
 
 function cacheDom() {
   form = document.getElementById("add-city-form");
@@ -27,6 +28,7 @@ function cacheDom() {
 
 function bindEvents() {
   form.addEventListener("submit", (event) => {
+    formState.id = Math.round(Math.random() * 100000);
     addDestination(formState);
     event.preventDefault();
     form.reset();

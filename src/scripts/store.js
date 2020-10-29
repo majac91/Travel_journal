@@ -294,16 +294,21 @@ export function addDestination(newItem) {
 
   //Save new item to Local Storage
   const storedListLS = localStorage.getItem("destinations");
+  console.log(storedListLS);
 
   const storedList = storedListLS ? JSON.parse(storedListLS) : {};
+  console.log(storedList);
 
   // update the list with the new destination (formState).
   const newList = { ...storedList, [newItem.id]: newItem };
+  console.log(newList);
 
   localStorage.setItem("destinations", JSON.stringify(newList));
 
   events.publish("destinationUpdated", convertToArray(newList));
-  return newList;
+  console.log(localStorage);
+
+  // return newList;
 }
 
 function convertToArray(obj) {
