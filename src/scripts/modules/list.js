@@ -1,46 +1,55 @@
-import destinationsList from "../destinationList.js";
+import { getStoredList, toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
+// import form from "./add_destination.js";
 
 // Create  and display destination lists
 
-// Set the "shared" variables among different methods:
+//Variables
 let buttons;
 let visited;
 let bucketlist;
+let add;
 let all;
 let gallery;
 let activeBtn;
+let storedList;
+let form;
+let closeFormBtn;
+let navbar;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".buttons").children);
   visited = buttons[1];
   bucketlist = buttons[2];
   all = buttons[3];
+  add = buttons[4];
+  navbar = document.querySelector(".navbar");
   gallery = document.querySelector(".gallery");
   activeBtn = null;
+  form = document.getElementById("add-city-form");
+  closeFormBtn = document.getElementById("close");
+  storedList = getStoredList();
 }
 
 function bindEvents() {
   visited.addEventListener("click", addVisited);
   bucketlist.addEventListener("click", addBucketlist);
   all.addEventListener("click", showAll);
+  add.addEventListener("click", openForm);
+  closeFormBtn.addEventListener("click", closeForm);
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  events.subscribe("destinationAdded", (itemIndex) => {
-    const elDestination = renderDestination(destinationsList[itemIndex]);
-    gallery.appendChild(elDestination);
-  });
-  events.subscribe("loadAdded", (getNew) => {
-    const storedDestination = renderDestination(destinationsList[getNew]);
-    gallery.appendChild(storedDestination);
+  events.subscribe("destinationUpdated", (newList) => {
+    storedList = newList;
+    render();
   });
 }
 
 function renderDestination(destination) {
   // create destination wrapper
   const elDestination = document.createElement("figure");
-  elDestination.classList.add("img-container");
+  elDestination.classList.add("gallery-img--container");
 
   // add the correct class to elDestination wrapper
   if (destination.visited === true) {
@@ -51,10 +60,28 @@ function renderDestination(destination) {
 
   // create img element
   const img = document.createElement("img");
-  img.style.objectFit = "cover"; // TODO - Prefer adding a CSS class instead.
   img.src = destination.photo;
+  img.classList.add("gallery-img");
+  //create checkbox
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("check");
+
+  // move checked items to 'visited' list
+
+  checkbox.addEventListener("click", () => {
+    toggleButtonVisited(destination);
+  });
+
+  //check all visited list checkboxes by default
+  if (destination.visited) {
+    checkbox.setAttribute("checked", "checked");
+  }
+
   // add img to destination
   elDestination.appendChild(img);
+  //add checkbox
+  elDestination.appendChild(checkbox);
 
   //set img captions
   const figcaption = document.createElement("figcaption");
@@ -69,16 +96,14 @@ function renderDestination(destination) {
   );
   // add captions to destination
   elDestination.appendChild(figcaption);
-
-  // events.subscribe("destinationAdded", addDestination);
-
   // Return the destination HTML
   return elDestination;
 }
 
 function render() {
+  gallery.textContent = "";
   // Create DOM elements for each destination
-  destinationsList.forEach((destination) => {
+  storedList.forEach((destination) => {
     const elDestination = renderDestination(destination);
     gallery.appendChild(elDestination);
   });
@@ -119,17 +144,25 @@ function showAll() {
   gallery.classList.remove("bucketlist");
 }
 
+function openForm() {
+  form.classList.add("form-state--open");
+  console.log("click");
+}
+
+function closeForm() {
+  form.classList.remove("form-state--open");
+}
+
 //shrink header on scroll
 function shrinkNav() {
-  const navbar = document.querySelector(".navbar");
-  navbar.classList.add("shrink");
+  navbar.classList.add("navbar--shrink");
 }
 
 // restore nav size on scroll up
 function restoreNav() {
   const scrollPos = 0;
   if (document.body.getBoundingClientRect().top === scrollPos) {
-    document.querySelector(".navbar").classList.remove("shrink");
+    document.querySelector(".navbar").classList.remove("navbar--shrink");
   }
 }
 

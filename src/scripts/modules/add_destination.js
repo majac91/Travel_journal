@@ -1,6 +1,4 @@
-import destinationsList from "../destinationList.js";
-import events from "./pubsub.js";
-
+import { addDestination } from "../store.js";
 let form;
 let radioBtns;
 let radioVisited;
@@ -8,7 +6,6 @@ let radioBucketlist;
 let cityInput;
 let countryInput;
 let photoInput;
-let storedCity;
 //new list item state before the item is added
 let formState = {
   city: null,
@@ -28,19 +25,15 @@ function cacheDom() {
 
 function bindEvents() {
   form.addEventListener("submit", (event) => {
-    addDestination();
+    formState.id = Math.round(Math.random() * 100000);
+    addDestination(formState);
     event.preventDefault();
-    //get the index of the destination pushed to the destinationsList and publish it
-    const itemIndex = destinationsList.length - 1;
-    events.publish("destinationAdded", itemIndex);
-    // storeNew();
     form.reset();
   });
-  // document.addEventListener("DOMContentLoaded", loadNew);
   radioVisited.addEventListener("click", isVisited);
   radioBucketlist.addEventListener("click", isBucketlist);
   cityInput.addEventListener("change", (event) => {
-    updateFormState("city", event.target.value);
+    updateFormState("city", capitalize(event.target.value));
   });
   countryInput.addEventListener("change", (event) => {
     updateFormState("country", event.target.value);
@@ -55,28 +48,8 @@ function updateFormState(fieldName, value) {
   formState[fieldName] = value;
 }
 
-// function storeNew() {
-//   storedCity = localStorage.setItem(
-//     "newDestination",
-//     JSON.stringify(formState)
-//   );
-// }
-
-// localStorage.clear();
-
-// function loadNew() {
-//   let isStored = localStorage.getItem("newDestination");
-//   if (isStored) {
-//     let data = JSON.parse(isStored);
-//   } else {
-//     data = [];
-//   }
-//   localStorage.setItem("newDestination", data);
-// }
-
-//push new list item to destinationList
-function addDestination() {
-  return destinationsList.push(formState);
+function capitalize(word) {
+  return word[0].toUpperCase() + word.substring(1).toLowerCase();
 }
 
 function isVisited() {
@@ -102,3 +75,4 @@ function init() {
 
 const module = { init };
 export default module;
+// export { form };

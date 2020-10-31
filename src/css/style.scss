@@ -21,16 +21,47 @@
 
 //Variables
 $grey: #f1f1f1;
+$text: black;
 
 //Basic styles
 html {
   background: $grey;
+  font-size: 10px;
   font-family: "TwCenW01-Medium";
 }
 
 .container {
+  width: 95vw;
+  margin: auto;
+}
+
+.container--space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container--main {
   width: 90vw;
   margin: auto;
+}
+
+.container--social {
+  position: fixed;
+  left: 5vh;
+  height: 95vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $text;
 }
 
 button {
@@ -39,106 +70,181 @@ button {
   cursor: pointer;
 }
 
-//Header
+//Navbar
 .navbar {
-  height: 12rem;
+  height: 7rem;
   width: 100%;
   background: $grey;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   letter-spacing: 2px;
   line-height: 1.2;
-  border-bottom: 1px solid black;
   transition: all 0.4s ease;
   font-family: "GermanoRegular";
   font-weight: normal;
   font-style: normal;
   position: fixed;
   z-index: 1;
+  .navbar-logo {
+    display: inline-block;
+  }
+}
+
+.navbar__links {
+  margin: 2rem;
+
+  display: flex;
+  font-size: 1.8rem;
+  .navbar__link {
+    margin-left: 4rem;
+  }
+}
+
+.navbar--social {
+  float: left;
+  font-size: 1.8rem;
+  .social__links {
+    transform: rotate(-90deg);
+    margin-bottom: 3rem;
+  }
 }
 
 //shrink navbar on scroll
-.shrink {
-  font-size: 1rem;
+.navbar--shrink {
+  font-size: 1.2rem;
   height: 8rem;
 }
 
-#add-city-form {
-  display: block;
-  margin-top: 30vh;
+//Header
+.header {
+  margin-bottom: 15vh;
+  .header__img {
+    height: 90vh;
+    object-fit: contain;
+    min-width: 50rem;
+    display: block;
+    margin: auto;
+    .header__img:hover {
+      opacity: 100;
+    }
+  }
 }
 
 .buttons {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding-bottom: 30px;
+  padding-bottom: 3rem;
   height: 5rem;
+  font-size: 1.8rem;
 
-  .buttons__view,
   .button {
     display: inline-block;
-    margin: 20px;
+    margin: 2rem;
     font-family: "TwCenW01-Medium";
     font-size: 1em;
     font-weight: 100;
     text-transform: uppercase;
     opacity: 1;
   }
+  .flaticon-016-add:before {
+    content: "\f10f";
+  }
   .button:hover {
     border-bottom: 1px solid black;
+  }
+  .buttons__view:hover,
+  .button__add:hover {
+    border-bottom: none;
   }
 }
 
 //Clicked button
 .active-button {
   border-bottom: 1px solid black;
+  &:first-child,
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.form-state--closed {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  .form__label,
+  .radio-buttons,
+  .form-btn__submit {
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+  }
+  .form__input {
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+  }
+}
+.form-state--open {
+  visibility: visible;
+  // background: $grey;
+  background: darken($color: $grey, $amount: 5%);
+  z-index: 1000;
+  font-size: 1.8rem;
+  position: fixed;
+  top: 20vh;
+  bottom: 20vh;
+  left: 30vw;
+  right: 30vw;
+  height: auto;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-btn__submit {
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 1rem 2.5rem;
+  margin: 1.5rem;
+  font-size: 1.3rem;
+  background: darken($color: $grey, $amount: 10%);
+}
+#close {
+  background: darken($color: $grey, $amount: 5%);
+}
+.form-btn__close::before {
+  content: "\f100";
+  display: block;
+  position: relative;
+  left: 20rem;
+  bottom: 38rem;
 }
 
 //Gallery
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   //fixes the last row formating
   &::after {
     content: "";
-    width: 500px;
+    width: 50rem;
   }
 }
 
-.img-container {
-  width: 500px;
-}
-
-img {
-  width: 100%;
-  height: 300px;
-  display: block;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-//img captions
-.caption {
-  line-height: 1.5;
-  margin: 10px 0;
-  .caption__city {
-    font-weight: 300;
-    font-size: 1.1em;
-    letter-spacing: 1px;
-  }
-  .caption__country {
-    font-weight: 300;
-    font-size: 0.7em;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.gallery-img--container {
+  width: 50rem;
+  .gallery-img {
+    width: 100%;
+    height: 30rem;
+    display: block;
+    opacity: 1;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -162,4 +268,22 @@ img {
 
 .gallery.bucketlist figure.visited {
   display: none;
+}
+
+//img captions
+.caption {
+  line-height: 1.5;
+  margin: 1rem 0;
+  .caption__city {
+    font-weight: 300;
+    font-size: 2rem;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+  }
+  .caption__country {
+    font-weight: 300;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 }
