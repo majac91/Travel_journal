@@ -70,7 +70,7 @@ button {
   cursor: pointer;
 }
 
-//Header
+//Navbar
 .navbar {
   height: 7rem;
   width: 100%;
@@ -108,6 +108,12 @@ button {
   }
 }
 
+//shrink navbar on scroll
+.navbar--shrink {
+  font-size: 1.2rem;
+  height: 8rem;
+}
+
 //Header
 .header {
   margin-bottom: 15vh;
@@ -121,12 +127,6 @@ button {
       opacity: 100;
     }
   }
-}
-
-//shrink navbar on scroll
-.shrink {
-  font-size: 1.2rem;
-  height: 8rem;
 }
 
 .buttons {
@@ -173,7 +173,7 @@ button {
   width: 0;
   .form__label,
   .radio-buttons,
-  .submitFormBtn {
+  .form-btn__submit {
     margin-top: 2.5rem;
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
@@ -217,8 +217,8 @@ button {
   content: "\f100";
   display: block;
   position: relative;
-  left: 15rem;
-  bottom: 30rem;
+  left: 20rem;
+  bottom: 38rem;
 }
 
 //Gallery
@@ -226,7 +226,6 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
   //fixes the last row formating
   &::after {
     content: "";
@@ -234,37 +233,18 @@ button {
   }
 }
 
-.img-container {
+.gallery-img--container {
   width: 50rem;
-}
-
-.gallery img {
-  width: 100%;
-  height: 30rem;
-  display: block;
-  opacity: 1;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
-//img captions
-.caption {
-  line-height: 1.5;
-  margin: 1rem 0;
-  .caption__city {
-    font-weight: 300;
-    font-size: 2rem;
-    text-transform: capitalize;
-    letter-spacing: 1px;
-  }
-  .caption__country {
-    font-weight: 300;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+  .gallery-img {
+    width: 100%;
+    height: 30rem;
+    display: block;
+    opacity: 1;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -288,4 +268,22 @@ button {
 
 .gallery.bucketlist figure.visited {
   display: none;
+}
+
+//img captions
+.caption {
+  line-height: 1.5;
+  margin: 1rem 0;
+  .caption__city {
+    font-weight: 300;
+    font-size: 2rem;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+  }
+  .caption__country {
+    font-weight: 300;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 }

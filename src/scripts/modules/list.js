@@ -15,6 +15,7 @@ let activeBtn;
 let storedList;
 let form;
 let closeFormBtn;
+let navbar;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".buttons").children);
@@ -22,6 +23,7 @@ function cacheDom() {
   bucketlist = buttons[2];
   all = buttons[3];
   add = buttons[4];
+  navbar = document.querySelector(".navbar");
   gallery = document.querySelector(".gallery");
   activeBtn = null;
   form = document.getElementById("add-city-form");
@@ -47,7 +49,7 @@ function bindEvents() {
 function renderDestination(destination) {
   // create destination wrapper
   const elDestination = document.createElement("figure");
-  elDestination.classList.add("img-container");
+  elDestination.classList.add("gallery-img--container");
 
   // add the correct class to elDestination wrapper
   if (destination.visited === true) {
@@ -59,6 +61,7 @@ function renderDestination(destination) {
   // create img element
   const img = document.createElement("img");
   img.src = destination.photo;
+  img.classList.add("gallery-img");
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -152,15 +155,14 @@ function closeForm() {
 
 //shrink header on scroll
 function shrinkNav() {
-  const navbar = document.querySelector(".navbar");
-  navbar.classList.add("shrink");
+  navbar.classList.add("navbar--shrink");
 }
 
 // restore nav size on scroll up
 function restoreNav() {
   const scrollPos = 0;
   if (document.body.getBoundingClientRect().top === scrollPos) {
-    document.querySelector(".navbar").classList.remove("shrink");
+    document.querySelector(".navbar").classList.remove("navbar--shrink");
   }
 }
 
