@@ -1,5 +1,6 @@
 import { getStoredList, toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
+// import form from "./add_destination.js";
 
 // Create  and display destination lists
 
@@ -7,18 +8,24 @@ import events from "./pubsub.js";
 let buttons;
 let visited;
 let bucketlist;
+let add;
 let all;
 let gallery;
 let activeBtn;
 let storedList;
+let form;
+let closeFormBtn;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".buttons").children);
   visited = buttons[1];
   bucketlist = buttons[2];
   all = buttons[3];
+  add = buttons[4];
   gallery = document.querySelector(".gallery");
   activeBtn = null;
+  form = document.getElementById("add-city-form");
+  closeFormBtn = document.getElementById("close");
   storedList = getStoredList();
 }
 
@@ -26,6 +33,8 @@ function bindEvents() {
   visited.addEventListener("click", addVisited);
   bucketlist.addEventListener("click", addBucketlist);
   all.addEventListener("click", showAll);
+  add.addEventListener("click", openForm);
+  closeFormBtn.addEventListener("click", closeForm);
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
@@ -49,7 +58,6 @@ function renderDestination(destination) {
 
   // create img element
   const img = document.createElement("img");
-  img.style.objectFit = "cover"; // TODO - Prefer adding a CSS class instead.
   img.src = destination.photo;
   //create checkbox
   const checkbox = document.createElement("input");
@@ -60,8 +68,6 @@ function renderDestination(destination) {
 
   checkbox.addEventListener("click", () => {
     toggleButtonVisited(destination);
-    checkbox.parentElement.classList.add("visited");
-    checkbox.parentElement.classList.remove("bucketlist");
   });
 
   //check all visited list checkboxes by default
@@ -133,6 +139,15 @@ function addBucketlist() {
 function showAll() {
   gallery.classList.remove("visited");
   gallery.classList.remove("bucketlist");
+}
+
+function openForm() {
+  form.classList.add("form-state--open");
+  console.log("click");
+}
+
+function closeForm() {
+  form.classList.remove("form-state--open");
 }
 
 //shrink header on scroll

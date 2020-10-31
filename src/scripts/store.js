@@ -271,8 +271,12 @@ const destinationsObj = {
   // },
 };
 
+//TODO update a total number of cities visited
+
 export function toggleButtonVisited(item) {
-  item.visited = true;
+  // item.visited = true;
+  const visited = item.visited;
+  item.visited = !visited;
 
   const storedListLS = localStorage.getItem("destinations");
 

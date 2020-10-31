@@ -15,22 +15,62 @@
       href="https://fontlibrary.org/face/germano"
       type="text/css"
     />
+    <link rel="stylesheet" href="./icons/font/flaticon.css" />
     <title>places-been</title>
   </head>
   <body>
     <nav class="navbar">
-      <h1 class="navbar__title">places been</h1>
-      <h2 class="navbar__subtitle">a travel journal</h2>
+      <div class="container container--space-between">
+        <a href="#" class="navbar-logo">
+          <h1 class="navbar__title">places been</h1>
+          <h2 class="navbar__subtitle">a travel journal</h2>
+        </a>
+        <ul class="navbar__links">
+          <li class="navbar__link">
+            <a href="#">About</a>
+          </li>
+          <li class="navbar__link">
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <ul class="navbar--social container--social">
+        <li class="social__links">
+          <a href="#">Ig</a>
+        </li>
+        <li class="social__links">
+          <a href="#">Fb</a>
+        </li>
+      </ul>
     </nav>
-    <br />
 
-    <form id="add-city-form" class="container">
-      <p id="cityName">City</p>
-      <input type="text" name="text" id="inputCity" />
-      <p id="countryName">Country</p>
-      <input type="text" name="text" id="inputCountry" />
+    <header class="header container--main">
+      <img class="header__img" src="./img/header2.jpg" alt="" />
+    </header>
+
+    <form
+      id="add-city-form"
+      class="form add-city-form form-state--closed container--main"
+    >
+      <label class="form__label form__label--city" id="cityName">City</label>
+      <input
+        type="text"
+        name="text"
+        id="inputCity"
+        class="form__input form__input--city"
+      />
+      <label class="form__label form__label--country" id="countryName"
+        >Country</label
+      >
+      <input
+        type="text"
+        name="text"
+        id="inputCountry"
+        class="form__input form__input--country"
+      />
       <!-- add photo field-->
-      <input type="url" id="inputImg" />
+      <label class="form__label form__label--url" id="url">URL</label>
+      <input type="url" id="inputImg" class="form__input form__input--url" />
       <!-- radio buttons-->
       <div class="radio-buttons">
         <input
@@ -40,7 +80,7 @@
           value="Visited"
           label="Visited"
         />
-        <label for="Visited">Visited</label>
+        <label for="Visited" class="form__label--visited">Visited</label>
         <input
           id="rd-bucketlist"
           type="radio"
@@ -48,22 +88,32 @@
           value="Bucketlist"
           label="Bucketlist"
         />
-        <label for="Bucketlist">Bucketlist</label>
+        <label for="Bucketlist" class="form__label--bucketlist"
+          >Bucketlist</label
+        >
       </div>
       <!-- Upload button -->
-      <button type="submit" id="upload">Upload</button>
+      <button type="submit" id="upload" class="form-btn__submit">Upload</button>
+      <!-- Close button -->
+      <button
+        type="button"
+        id="close"
+        class="form-btn__close flaticon-001-cancel-3"
+      ></button>
     </form>
 
-    <div class="buttons container">
-      <span class="buttons__view">View:</span>
+    <div class="buttons container--main">
+      <span class="button buttons__view">My places:</span>
       <button class="button button__visited" type="button">Visited</button>
       <button class="button button__buckelist" type="button">Bucketlist</button>
-      <button class="button button__all" type="button">Show all</button>
+      <button class="button button__all" type="button">All</button>
+      <button
+        class="button button__add flaticon-016-add"
+        type="button"
+      ></button>
     </div>
 
-    <main class="gallery container">
-      <div class="gallery-items"></div>
-    </main>
+    <main class="gallery container--main"></main>
 
     <script src="main.js"></script>
   </body>
