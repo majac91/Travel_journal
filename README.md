@@ -17,6 +17,8 @@ Some of the objectives include:
 
 :ballot_box_with_check: learning the concept of functional programming
 
+:ballot_box_with_check: creating JS modules 
+
 :ballot_box_with_check: learning and implementing code design patterns
 
 :ballot_box_with_check: practicing refactoring
