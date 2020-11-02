@@ -4,10 +4,10 @@ Travel journal is a personal travel tracking webpage.
 
 ## Installation
 
-Use the package manager parcel.
+Install dependencies
 
 ```
-npm install -g parcel-bundler
+npm install
 ```
 
 Run the project 
