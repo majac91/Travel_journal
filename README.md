@@ -5,11 +5,13 @@ Travel journal is a personal travel tracking webpage.
 
 ## Project objectives 
 
-This is the project I did to support the process of learning JavaScript. 
+This is the project I did as a part of the JavaScript learning process. 
 
-Some of the objectives were: 
+Some of the objectives include: 
 
 :ballot_box_with_check: learning the JS basics
+
+:ballot_box_with_check: using parcel and npm to set up the project 
 
 :ballot_box_with_check: learning the concept of functional programming
 
@@ -17,7 +19,7 @@ Some of the objectives were:
 
 :ballot_box_with_check: practicing refactoring
 
-:ballot_box_with_check: using the local storage 
+:ballot_box_with_check: using local storage 
 
 :black_square_button: replacing local storage with a serverless database
 
