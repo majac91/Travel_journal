@@ -77,11 +77,12 @@ async function retreiveList() {
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
-    let url = object.get("url");
+    // console.log(object.get("photo"));
 
-    console.log(typeof url);
+    let photo = object.get("photo").url();
+    console.log(photo);
 
-    let visitedObj = { city, country, visited, url };
+    let visitedObj = { city, country, visited, photo };
     visitedList.push(visitedObj);
   }
   console.log(visitedList);
@@ -91,7 +92,7 @@ async function retreiveList() {
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
-    let url = object.get("url");
+    let url = object.get("photo");
     let bucketlistObj = { city, country, visited, url };
     bucketList.push(bucketlistObj);
   }
