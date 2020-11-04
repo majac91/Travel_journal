@@ -1,6 +1,5 @@
 import { getStoredList, toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
-// import form from "./add_destination.js";
 
 // Create  and display destination lists
 
@@ -40,8 +39,13 @@ function bindEvents() {
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  events.subscribe("destinationUpdated", (newList) => {
-    storedList = newList;
+  // events.subscribe("destinationUpdated", (newList) => {
+  //   storedList = newList;
+  //   render();
+  // });
+  events.subscribe("listRetreived", (list) => {
+    console.log(list);
+    storedList = list;
     render();
   });
 }

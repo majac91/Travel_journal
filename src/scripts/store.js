@@ -77,30 +77,26 @@ async function retreiveList() {
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
-    // console.log(object.get("photo"));
+    // let photo = object.get("photo").url();
+    // console.log(photo);
 
-    let photo = object.get("photo").url();
-    console.log(photo);
-
-    let visitedObj = { city, country, visited, photo };
+    let visitedObj = { city, country, visited };
     visitedList.push(visitedObj);
   }
-  console.log(visitedList);
+  // console.log(visitedList);
 
   for (let i = 0; i < bucketlistQuery.length; i++) {
     let object = bucketlistQuery[i];
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
-    let url = object.get("photo");
-    let bucketlistObj = { city, country, visited, url };
+    // let url = object.get("photo");
+    let bucketlistObj = { city, country, visited };
     bucketList.push(bucketlistObj);
   }
 
-  console.log(bucketList);
-
   let retreivedList = [...visitedList, ...bucketList];
-  console.log(retreivedList);
+  events.publish("listRetreived", retreivedList);
 }
 
 retreiveList();
