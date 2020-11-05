@@ -150,7 +150,6 @@ function showAll() {
 
 function openForm() {
   form.classList.add("form-state--open");
-  console.log("click");
 }
 
 function closeForm() {

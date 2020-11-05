@@ -59,6 +59,8 @@ export function addDestination(newItem) {
 //   });
 // });
 
+let photoNum = 0;
+
 async function retreiveList() {
   const Destinations = Parse.Object.extend("Destinations");
   const query = new Parse.Query(Destinations);
@@ -77,22 +79,19 @@ async function retreiveList() {
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
-    // let photo = object.get("photo").url();
-    // console.log(photo);
-
-    let visitedObj = { city, country, visited };
+    let photo = object.get("photo").url();
+    let visitedObj = { city, country, visited, photo };
     visitedList.push(visitedObj);
   }
-  // console.log(visitedList);
 
   for (let i = 0; i < bucketlistQuery.length; i++) {
     let object = bucketlistQuery[i];
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
-    // let url = object.get("photo");
-    let bucketlistObj = { city, country, visited };
-    bucketList.push(bucketlistObj);
+    let photo = object.get("photo").url();
+    let bucketListObj = { city, country, visited, photo };
+    bucketList.push(bucketListObj);
   }
 
   let retreivedList = [...visitedList, ...bucketList];
