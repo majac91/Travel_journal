@@ -6,7 +6,7 @@ let radioBucketlist;
 let cityInput;
 let countryInput;
 let photoInput;
-//new list item state before the item is added
+let fileInput;
 let formState = {
   city: null,
   country: null,
@@ -21,6 +21,7 @@ function cacheDom() {
   cityInput = document.getElementById("inputCity");
   countryInput = document.getElementById("inputCountry");
   photoInput = document.getElementById("inputImg");
+  fileInput = document.getElementById("profilePhotoFileUpload");
 }
 
 function bindEvents() {
@@ -37,9 +38,6 @@ function bindEvents() {
   });
   countryInput.addEventListener("change", (event) => {
     updateFormState("country", event.target.value);
-  });
-  photoInput.addEventListener("change", (event) => {
-    updateFormState("photo", event.target.value);
   });
 }
 

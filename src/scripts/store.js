@@ -25,28 +25,6 @@ export function toggleButtonVisited(item) {
   events.publish("destinationUpdated", convertToArray(updatedList));
 }
 
-//push new list item to destinationList
-export function addDestination(newItem) {
-  destinationsObj[newItem.id] = newItem;
-  console.log(newItem);
-
-  //Save new item to Local Storage
-  const storedListLS = localStorage.getItem("destinations");
-  console.log(storedListLS);
-
-  const storedList = storedListLS ? JSON.parse(storedListLS) : {};
-  console.log(storedList);
-
-  // update the list with the new destination (formState).
-  const newList = { ...storedList, [newItem.id]: newItem };
-  console.log(newList);
-
-  localStorage.setItem("destinations", JSON.stringify(newList));
-
-  events.publish("destinationUpdated", convertToArray(newList));
-  console.log(localStorage);
-}
-
 // const destinationsArr = convertToArray(destinationsObj);
 
 // destinationsArr.forEach((destination) => {
@@ -58,8 +36,6 @@ export function addDestination(newItem) {
 //     visited: destination.visited,
 //   });
 // });
-
-let photoNum = 0;
 
 async function retreiveList() {
   const Destinations = Parse.Object.extend("Destinations");
@@ -99,6 +75,32 @@ async function retreiveList() {
 }
 
 retreiveList();
+
+export function addDestination(newItem) {
+  const Destinations = Parse.Object.extend("Destinations");
+  const destinations = new Destinations();
+
+  const fileInput = document.getElementById("profilePhotoFileUpload");
+  const selectedFiles = [...fileInput.files];
+  const file = selectedFiles[0];
+  const name = "photo.jpg";
+
+  const parseFile = new Parse.File(name, file);
+
+  destinations
+    .save({
+      city: newItem.city,
+      country: newItem.country,
+      visited: newItem.visited,
+      photo: parseFile,
+    })
+    .then(function (response) {
+      console.log("it worked");
+    })
+    .catch(function (error) {
+      console.log("it didnt work");
+    });
+}
 
 function convertToArray(obj) {
   return Object.keys(obj).map((id) => {

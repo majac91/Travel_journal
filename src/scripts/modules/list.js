@@ -56,11 +56,9 @@ function renderDestination(destination) {
   elDestination.classList.add("gallery-img--container");
 
   // add the correct class to elDestination wrapper
-  if (destination.visited === true) {
-    elDestination.classList.add("visited");
-  } else {
-    elDestination.classList.add("bucketlist");
-  }
+  destination.visited === true
+    ? elDestination.classList.add("visited")
+    : elDestination.classList.add("bucketlist");
 
   // create img element
   const img = document.createElement("img");
