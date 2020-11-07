@@ -7,23 +7,9 @@ Parse.initialize(
 );
 Parse.serverURL = "https://parseapi.back4app.com/";
 
-export function toggleButtonVisited(item) {
-  // item.visited = true;
-  const visited = item.visited;
-  item.visited = !visited;
-
-  const storedListLS = localStorage.getItem("destinations");
-
-  const storedList = storedListLS ? JSON.parse(storedListLS) : {};
-
-  const newList = { ...storedList, [item.id]: item };
-
-  localStorage.setItem("destinations", JSON.stringify(newList));
-
-  const updatedList = Object.keys(newList).map((id) => newList[id]);
-  //publish the updated list item
-  events.publish("destinationUpdated", convertToArray(updatedList));
-}
+const Destinations = Parse.Object.extend("Destinations");
+const destinations = new Destinations();
+const query = new Parse.Query(Destinations);
 
 // const destinationsArr = convertToArray(destinationsObj);
 
@@ -38,9 +24,6 @@ export function toggleButtonVisited(item) {
 // });
 
 async function retreiveList() {
-  const Destinations = Parse.Object.extend("Destinations");
-  const query = new Parse.Query(Destinations);
-
   query.equalTo("visited", true);
   const visitedQuery = await query.find();
 
@@ -77,9 +60,6 @@ async function retreiveList() {
 retreiveList();
 
 export function addDestination(newItem) {
-  const Destinations = Parse.Object.extend("Destinations");
-  const destinations = new Destinations();
-
   const fileInput = document.getElementById("profilePhotoFileUpload");
   const selectedFiles = [...fileInput.files];
   const file = selectedFiles[0];
@@ -95,10 +75,10 @@ export function addDestination(newItem) {
       photo: parseFile,
     })
     .then(function (response) {
-      console.log("it worked");
+      console.log("success");
     })
     .catch(function (error) {
-      console.log("it didnt work");
+      console.log("error");
     });
 }
 
@@ -108,9 +88,14 @@ function convertToArray(obj) {
   });
 }
 
-export function getStoredList() {
-  const storedListLS = localStorage.getItem("destinations");
+export function toggleButtonVisited(item) {
+  // item.visited = true;
+  const visited = item.visited;
+  item.visited = !visited;
+  console.log(destinations);
 
-  const storedList = storedListLS ? JSON.parse(storedListLS) : [];
-  return convertToArray(storedList);
+  // query.equalTo("city", item.city);
+  destinations.set("visited", item.visited);
+  // query.equalTo("city", item.city);
+  // console.log(item.visited);
 }

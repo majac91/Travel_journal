@@ -1,4 +1,4 @@
-import { getStoredList, toggleButtonVisited } from "../store.js";
+import { toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
 
 // Create  and display destination lists
@@ -27,7 +27,6 @@ function cacheDom() {
   activeBtn = null;
   form = document.getElementById("add-city-form");
   closeFormBtn = document.getElementById("close");
-  storedList = getStoredList();
 }
 
 function bindEvents() {
@@ -39,12 +38,7 @@ function bindEvents() {
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  // events.subscribe("destinationUpdated", (newList) => {
-  //   storedList = newList;
-  //   render();
-  // });
   events.subscribe("listRetreived", (list) => {
-    console.log(list);
     storedList = list;
     render();
   });
@@ -170,7 +164,6 @@ function restoreNav() {
 function init() {
   cacheDom();
   bindEvents();
-  render();
 }
 
 const module = { init };
