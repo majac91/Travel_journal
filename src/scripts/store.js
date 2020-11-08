@@ -11,16 +11,7 @@ const Destinations = Parse.Object.extend("Destinations");
 const destinations = new Destinations();
 const query = new Parse.Query(Destinations);
 
-// const destinationsArr = convertToArray(destinationsObj);
-
-// destinationsArr.forEach((destination) => {
-//   destinations.save({
-//     city: destination.city,
-//     country: destination.country,
-//     visited: destination.visited,
-//   });
-// });
-
+//get a list from server and publish
 async function retreiveList() {
   query.equalTo("visited", true);
   const visitedQuery = await query.find();
@@ -47,14 +38,16 @@ async function retreiveList() {
 
 retreiveList();
 
+//add new city
 export function addDestination(newItem) {
+  //create the file and upload to server
   const fileInput = document.getElementById("profilePhotoFileUpload");
   const selectedFiles = [...fileInput.files];
   const file = selectedFiles[0];
   const name = "photo.jpg";
-
   const parseFile = new Parse.File(name, file);
 
+  //save new city
   destinations
     .save({
       city: newItem.city,
@@ -76,6 +69,7 @@ function convertToArray(obj) {
   });
 }
 
+//check/uncheck an item from a list
 export async function toggleButtonVisited(item) {
   const visited = item.visited;
   item.visited = !visited;
@@ -87,6 +81,7 @@ export async function toggleButtonVisited(item) {
   updateQuery[0].set("visited", item.visited).save();
 }
 
+//delete an item
 export async function deleteItem(item) {
   const query = new Parse.Query(Destinations);
   query.equalTo("city", item.city);
