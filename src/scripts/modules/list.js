@@ -1,7 +1,7 @@
-import { toggleButtonVisited } from "../store.js";
+import { deleteItem, toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
 
-// Create  and display destination lists
+// Create gallery elements and render them
 
 //Variables
 let buttons;
@@ -40,6 +40,7 @@ function bindEvents() {
   window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
+    console.log(storedList);
     render();
   });
 }
@@ -58,26 +59,21 @@ function renderDestination(destination) {
   const img = document.createElement("img");
   img.src = destination.photo;
   img.classList.add("gallery-img");
+
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.classList.add("check");
 
-  // move checked items to 'visited' list
-
-  checkbox.addEventListener("click", () => {
-    toggleButtonVisited(destination);
-  });
-
-  //check all visited list checkboxes by default
+  //check all visited list checkboxes
   if (destination.visited) {
     checkbox.setAttribute("checked", "checked");
   }
 
-  // add img to destination
-  elDestination.appendChild(img);
-  //add checkbox
-  elDestination.appendChild(checkbox);
+  // create delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.innerText = "Delete";
 
   //set img captions
   const figcaption = document.createElement("figcaption");
@@ -90,8 +86,30 @@ function renderDestination(destination) {
     "beforeend",
     `<h3 class='caption__country'>${destination.country}</h3>`
   );
+
+  //E v e n t s
+  // move checked items to 'visited' list
+  checkbox.addEventListener("click", () => {
+    toggleButtonVisited(destination);
+    render();
+  });
+
+  // delete an item
+  deleteBtn.addEventListener("click", () => {
+    deleteItem(destination);
+    render(); //TODO make changes render without refreshing
+  });
+
+  //A p e n d  t o  w r a p p e r
+  // add img to destination
+  elDestination.appendChild(img);
+  //add checkbox
+  elDestination.appendChild(checkbox);
+  //add delete button
+  elDestination.appendChild(deleteBtn);
   // add captions to destination
   elDestination.appendChild(figcaption);
+
   // Return the destination HTML
   return elDestination;
 }

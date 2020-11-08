@@ -14,8 +14,6 @@ const query = new Parse.Query(Destinations);
 // const destinationsArr = convertToArray(destinationsObj);
 
 // destinationsArr.forEach((destination) => {
-//   var Destinations = Parse.Object.extend("Destinations");
-//   var destinations = new Destinations();
 //   destinations.save({
 //     city: destination.city,
 //     country: destination.country,
@@ -30,30 +28,20 @@ async function retreiveList() {
   query.equalTo("visited", false);
   const bucketlistQuery = await query.find();
 
-  let visitedList = [];
-  let bucketList = [];
+  const destList = [...visitedQuery, ...bucketlistQuery];
 
-  for (let i = 0; i < visitedQuery.length; i++) {
-    let object = visitedQuery[i];
+  const retreivedList = [];
+
+  for (let i = 0; i < destList.length; i++) {
+    let object = destList[i];
     let city = object.get("city");
     let country = object.get("country");
     let visited = object.get("visited");
     let photo = object.get("photo").url();
-    let visitedObj = { city, country, visited, photo };
-    visitedList.push(visitedObj);
+    let listItem = { city, country, visited, photo };
+    retreivedList.push(listItem);
   }
 
-  for (let i = 0; i < bucketlistQuery.length; i++) {
-    let object = bucketlistQuery[i];
-    let city = object.get("city");
-    let country = object.get("country");
-    let visited = object.get("visited");
-    let photo = object.get("photo").url();
-    let bucketListObj = { city, country, visited, photo };
-    bucketList.push(bucketListObj);
-  }
-
-  let retreivedList = [...visitedList, ...bucketList];
   events.publish("listRetreived", retreivedList);
 }
 
@@ -88,14 +76,28 @@ function convertToArray(obj) {
   });
 }
 
-export function toggleButtonVisited(item) {
-  // item.visited = true;
+export async function toggleButtonVisited(item) {
   const visited = item.visited;
   item.visited = !visited;
-  console.log(destinations);
 
-  // query.equalTo("city", item.city);
-  destinations.set("visited", item.visited);
-  // query.equalTo("city", item.city);
-  // console.log(item.visited);
+  const query = new Parse.Query(Destinations);
+  query.equalTo("city", item.city);
+  const updateQuery = await query.find();
+
+  updateQuery[0].set("visited", item.visited).save();
+}
+
+export async function deleteItem(item) {
+  const query = new Parse.Query(Destinations);
+  query.equalTo("city", item.city);
+  const deleteQuery = await query.find();
+
+  deleteQuery[0].destroy().then(
+    (myObject) => {
+      console.log("The object was deleted successfully.");
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 }
