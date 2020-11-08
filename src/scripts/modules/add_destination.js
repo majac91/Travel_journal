@@ -21,7 +21,6 @@ function cacheDom() {
   cityInput = document.getElementById("inputCity");
   countryInput = document.getElementById("inputCountry");
   photoInput = document.getElementById("inputImg");
-  fileInput = document.getElementById("profilePhotoFileUpload");
 }
 
 function bindEvents() {

@@ -250,6 +250,24 @@ button {
   }
 }
 
+.gallery-dropdown-icon {
+  position: relative;
+  top: -40px;
+  right: 20px;
+  float: right;
+}
+
+.gallery-dropdown-icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f141";
+  font-size: 2.5rem;
+  color: black;
+  opacity: 0;
+}
+.gallery-img:hover ~ .gallery-dropdown-icon::before {
+  opacity: 1;
+}
 //Switching lists on click
 .gallery figure.visited,
 .gallery figure.bucketlist {

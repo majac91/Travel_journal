@@ -42,7 +42,7 @@ retreiveList();
 //add new city
 export function addDestination(newItem) {
   //create the file and upload to server
-  const fileInput = document.getElementById("profilePhotoFileUpload");
+  const fileInput = document.getElementById("inputImg");
   const selectedFiles = [...fileInput.files];
   const file = selectedFiles[0];
   const name = "photo.jpg";
@@ -57,13 +57,12 @@ export function addDestination(newItem) {
       photo: parseFile,
     })
     .then(function (response) {
-      console.log("success");
+      console.log("The object was added successfully.");
+      retreiveList();
     })
     .catch(function (error) {
       console.log("error");
     });
-
-  retreiveList();
 }
 
 function convertToArray(obj) {
@@ -81,7 +80,17 @@ export async function toggleButtonVisited(item) {
   query.equalTo("city", item.city);
   const updateQuery = await query.find();
 
-  updateQuery[0].set("visited", item.visited).save();
+  updateQuery[0]
+    .set("visited", item.visited)
+    .save()
+    .then(
+      (myObject) => {
+        console.log("The object was updated successfully.");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 }
 
 //delete an item

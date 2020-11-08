@@ -40,7 +40,6 @@ function bindEvents() {
   window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
-    console.log(storedList);
     render();
   });
 }
@@ -75,6 +74,11 @@ function renderDestination(destination) {
   deleteBtn.classList.add("delete-btn");
   deleteBtn.innerText = "Delete";
 
+  //create img dropdown menu
+  const dropdown = document.createElement("div");
+  // dropdown.type = "button";
+  dropdown.classList.add("gallery-dropdown-icon");
+
   //set img captions
   const figcaption = document.createElement("figcaption");
   figcaption.classList.add("caption");
@@ -87,7 +91,7 @@ function renderDestination(destination) {
     `<h3 class='caption__country'>${destination.country}</h3>`
   );
 
-  //E v e n t s
+  //Events
   // move checked items to 'visited' list
   checkbox.addEventListener("click", () => {
     toggleButtonVisited(destination);
@@ -100,14 +104,11 @@ function renderDestination(destination) {
     console.log(event.target);
   });
 
-  //A p e n d  t o  w r a p p e r
-  // add img to destination
+  //Append to wrapper (figure el)
   elDestination.appendChild(img);
-  //add checkbox
+  elDestination.appendChild(dropdown);
   elDestination.appendChild(checkbox);
-  //add delete button
   elDestination.appendChild(deleteBtn);
-  // add captions to destination
   elDestination.appendChild(figcaption);
 
   // Return the destination HTML
