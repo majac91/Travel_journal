@@ -12,7 +12,7 @@ const destinations = new Destinations();
 const query = new Parse.Query(Destinations);
 
 //get a list from server and publish
-async function retreiveList() {
+export async function retreiveList() {
   query.equalTo("visited", true);
   const visitedQuery = await query.find();
 
@@ -34,6 +34,7 @@ async function retreiveList() {
   }
 
   events.publish("listRetreived", retreivedList);
+  return retreivedList;
 }
 
 retreiveList();
@@ -61,6 +62,8 @@ export function addDestination(newItem) {
     .catch(function (error) {
       console.log("error");
     });
+
+  retreiveList();
 }
 
 function convertToArray(obj) {
@@ -95,4 +98,5 @@ export async function deleteItem(item) {
       console.log(error);
     }
   );
+  retreiveList();
 }

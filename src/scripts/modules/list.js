@@ -95,9 +95,9 @@ function renderDestination(destination) {
   });
 
   // delete an item
-  deleteBtn.addEventListener("click", () => {
+  deleteBtn.addEventListener("click", (event) => {
     deleteItem(destination);
-    render(); //TODO make changes render without refreshing
+    console.log(event.target);
   });
 
   //A p e n d  t o  w r a p p e r
