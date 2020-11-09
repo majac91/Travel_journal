@@ -23,7 +23,7 @@ Some of the objectives include:
 
 :ballot_box_with_check: refactoring
 
-:ballot_box_with_check: learn local storage 
+:ballot_box_with_check: use local storage 
 
 :ballot_box_with_check: apply BEM principles 
 
