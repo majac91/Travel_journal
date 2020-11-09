@@ -1,4 +1,5 @@
 import events from "./modules/pubsub";
+// import exportData from "./dependencies/msc-script";
 
 const Parse = require("parse");
 Parse.initialize(
@@ -99,13 +100,15 @@ export async function deleteItem(item) {
   query.equalTo("city", item.city);
   const deleteQuery = await query.find();
 
-  deleteQuery[0].destroy().then(
-    (myObject) => {
-      console.log("The object was deleted successfully.");
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-  retreiveList();
+  if (confirm("Are you sure?")) {
+    deleteQuery[0].destroy().then(
+      (myObject) => {
+        console.log("The object was deleted successfully.");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    retreiveList();
+  }
 }

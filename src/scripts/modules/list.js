@@ -62,7 +62,7 @@ function renderDestination(destination) {
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.classList.add("check");
+  checkbox.classList.add("gallery-checkbox");
 
   //check all visited list checkboxes
   if (destination.visited) {
@@ -71,22 +71,28 @@ function renderDestination(destination) {
 
   // create delete button
   const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("delete-btn");
-  deleteBtn.innerText = "Delete";
+  deleteBtn.classList.add("gallery-delete-btn");
+  deleteBtn.innerText = "Delete"; //RESTORE DELETE BTN
 
   //create img dropdown menu
   const dropdown = document.createElement("div");
   // dropdown.type = "button";
   dropdown.classList.add("gallery-dropdown-icon");
 
-  //set img captions
+  //create figure caption
   const figcaption = document.createElement("figcaption");
   figcaption.classList.add("caption");
-  figcaption.insertAdjacentHTML(
+  //set captions in a div
+  const captionTxt = document.createElement("div");
+  captionTxt.classList.add("caption-text");
+  figcaption.appendChild(checkbox);
+  figcaption.appendChild(captionTxt);
+
+  captionTxt.insertAdjacentHTML(
     "beforeend",
     `<h2 class='caption__city'>${destination.city}</h2>`
   );
-  figcaption.insertAdjacentHTML(
+  captionTxt.insertAdjacentHTML(
     "beforeend",
     `<h3 class='caption__country'>${destination.country}</h3>`
   );
@@ -95,19 +101,17 @@ function renderDestination(destination) {
   // move checked items to 'visited' list
   checkbox.addEventListener("click", () => {
     toggleButtonVisited(destination);
-    render();
+    setTimeout(render, 1000);
   });
 
   // delete an item
-  deleteBtn.addEventListener("click", (event) => {
+  deleteBtn.addEventListener("click", () => {
     deleteItem(destination);
-    console.log(event.target);
   });
 
   //Append to wrapper (figure el)
   elDestination.appendChild(img);
   elDestination.appendChild(dropdown);
-  elDestination.appendChild(checkbox);
   elDestination.appendChild(deleteBtn);
   elDestination.appendChild(figcaption);
 
