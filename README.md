@@ -27,7 +27,9 @@ Some of the objectives include:
 
 :ballot_box_with_check: applying BEM principles 
 
-:black_square_button: replacing local storage with a serverless database
+:ballot_box_with_check: replacing local storage with a serverless database
+
+:black_square_button: style the page 
 
 
 
