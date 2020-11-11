@@ -1,7 +1,8 @@
 import events from "./modules/pubsub";
-// import exportData from "./dependencies/msc-script";
+import { mscConfirm } from "medium-style-confirm";
+import Parse from "parse";
+import "medium-style-confirm/css/msc-style.css";
 
-const Parse = require("parse");
 Parse.initialize(
   "vmgVvg3aF82Lhxcm97idm9UCLJGSHcvEzLmXxD22",
   "0ZzBp7Szs8vOyijUakZHud8WaxnT1taYtVKSJ6Ha"
@@ -50,26 +51,18 @@ export function addDestination(newItem) {
   const parseFile = new Parse.File(name, file);
 
   //save new city
-  destinations
-    .save({
+  try {
+    destinations.save({
       city: newItem.city,
       country: newItem.country,
       visited: newItem.visited,
       photo: parseFile,
-    })
-    .then(function (response) {
-      console.log("The object was added successfully.");
-      retreiveList();
-    })
-    .catch(function (error) {
-      console.log("error");
     });
-}
-
-function convertToArray(obj) {
-  return Object.keys(obj).map((id) => {
-    return obj[id];
-  });
+    console.log("The object was added successfully.");
+    retreiveList();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //check/uncheck an item from a list
@@ -81,17 +74,12 @@ export async function toggleButtonVisited(item) {
   query.equalTo("city", item.city);
   const updateQuery = await query.find();
 
-  updateQuery[0]
-    .set("visited", item.visited)
-    .save()
-    .then(
-      (myObject) => {
-        console.log("The object was updated successfully.");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  try {
+    const object = await updateQuery[0].set("visited", item.visited).save();
+    console.log("The object was updated successfully.");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //delete an item
@@ -100,15 +88,15 @@ export async function deleteItem(item) {
   query.equalTo("city", item.city);
   const deleteQuery = await query.find();
 
-  if (confirm("Are you sure?")) {
-    deleteQuery[0].destroy().then(
-      (myObject) => {
+  if (
+    mscConfirm("Are you sure?", async function () {
+      try {
+        const object = await deleteQuery[0].destroy();
         console.log("The object was deleted successfully.");
-      },
-      (error) => {
-        console.log(error);
+      } catch (e) {
+        console.log("Delete failed!", error);
       }
-    );
-    retreiveList();
-  }
+      retreiveList();
+    })
+  );
 }
