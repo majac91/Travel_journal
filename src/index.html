@@ -16,6 +16,17 @@
       type="text/css"
     />
     <link rel="stylesheet" href="./icons/font/flaticon.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
+    <!-- <link rel="stylesheet" href="./css/popups.css" /> -->
     <title>places-been</title>
   </head>
   <body>
@@ -31,18 +42,21 @@
             <a href="#">About</a>
           </li>
           <li class="navbar__link">
+            <a href="#main-buttons">My cities</a>
+          </li>
+          <li class="navbar__link">
             <a href="#">Contact</a>
           </li>
         </ul>
       </div>
-      <ul class="navbar--social container--social">
+      <!-- <ul class="navbar--social container--social">
         <li class="social__links">
           <a href="#">Ig</a>
         </li>
         <li class="social__links">
           <a href="#">Fb</a>
         </li>
-      </ul>
+      </ul> -->
     </nav>
     <!-- H E A D E R -->
     <header class="header container--main">
@@ -53,14 +67,19 @@
       id="add-city-form"
       class="form add-city-form form-state--closed container--main"
     >
-      <label class="form__label form__label--city" id="cityName">City</label>
+      <label class="form__label form__label--city" for="inputCity" id="cityName"
+        >City</label
+      >
       <input
         type="text"
         name="text"
         id="inputCity"
         class="form__input form__input--city"
       />
-      <label class="form__label form__label--country" id="countryName"
+      <label
+        class="form__label form__label--country"
+        for="inputCountry"
+        id="countryName"
         >Country</label
       >
       <input
@@ -70,8 +89,11 @@
         class="form__input form__input--country"
       />
       <!-- add photo field-->
-      <label class="form__label form__label--url" id="url">URL</label>
-      <input type="url" id="inputImg" class="form__input form__input--url" />
+      <label class="form__label form__label--url" for="inputImg" id="url"
+        >Photo</label
+      >
+      <input type="file" id="inputImg" class="form__input form__input--file" />
+      <!-- <input type="url" id="inputImg" class="form__input form__input--url" /> -->
       <!-- radio buttons-->
       <div class="radio-buttons">
         <input
@@ -81,7 +103,7 @@
           value="Visited"
           label="Visited"
         />
-        <label for="Visited" class="form__label--visited">Visited</label>
+        <label for="rd-visited" class="form__label--visited">Visited</label>
         <input
           id="rd-bucketlist"
           type="radio"
@@ -89,7 +111,7 @@
           value="Bucketlist"
           label="Bucketlist"
         />
-        <label for="Bucketlist" class="form__label--bucketlist"
+        <label for="rd-bucketlist" class="form__label--bucketlist"
           >Bucketlist</label
         >
       </div>
@@ -104,7 +126,7 @@
     </form>
 
     <!--M A I N - buttons-->
-    <div class="buttons container--main">
+    <div id="main-buttons" class="buttons container--main">
       <span class="button buttons__view">My places:</span>
       <button class="button button__visited" type="button">Visited</button>
       <button class="button button__buckelist" type="button">Bucketlist</button>
@@ -114,9 +136,11 @@
         type="button"
       ></button>
     </div>
+
     <!--M A I N - gallery-->
-    <main class="gallery container--main"></main>
+    <main class="gallery container--main" id="gallery"></main>
 
     <script src="main.js"></script>
+    <!-- <script src="./scripts/modules/popups.js"></script> -->
   </body>
 </html>

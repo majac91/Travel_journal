@@ -1,8 +1,7 @@
-import { getStoredList, toggleButtonVisited } from "../store.js";
+import { deleteItem, toggleButtonVisited } from "../store.js";
 import events from "./pubsub.js";
-// import form from "./add_destination.js";
 
-// Create  and display destination lists
+// Create gallery elements and render them
 
 //Variables
 let buttons;
@@ -28,7 +27,6 @@ function cacheDom() {
   activeBtn = null;
   form = document.getElementById("add-city-form");
   closeFormBtn = document.getElementById("close");
-  storedList = getStoredList();
 }
 
 function bindEvents() {
@@ -40,8 +38,8 @@ function bindEvents() {
   document.addEventListener("DOMContentLoaded", setActive);
   document.addEventListener("scroll", shrinkNav);
   window.addEventListener("scroll", restoreNav);
-  events.subscribe("destinationUpdated", (newList) => {
-    storedList = newList;
+  events.subscribe("listRetreived", (list) => {
+    storedList = list;
     render();
   });
 }
@@ -52,50 +50,71 @@ function renderDestination(destination) {
   elDestination.classList.add("gallery-img--container");
 
   // add the correct class to elDestination wrapper
-  if (destination.visited === true) {
-    elDestination.classList.add("visited");
-  } else {
-    elDestination.classList.add("bucketlist");
-  }
+  destination.visited === true
+    ? elDestination.classList.add("visited")
+    : elDestination.classList.add("bucketlist");
 
   // create img element
   const img = document.createElement("img");
   img.src = destination.photo;
   img.classList.add("gallery-img");
+
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.classList.add("check");
+  checkbox.classList.add("gallery-checkbox");
 
-  // move checked items to 'visited' list
-
-  checkbox.addEventListener("click", () => {
-    toggleButtonVisited(destination);
-  });
-
-  //check all visited list checkboxes by default
+  //check all visited list checkboxes
   if (destination.visited) {
     checkbox.setAttribute("checked", "checked");
   }
 
-  // add img to destination
-  elDestination.appendChild(img);
-  //add checkbox
-  elDestination.appendChild(checkbox);
+  // create delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("gallery-delete-btn");
+  deleteBtn.innerText = "Delete"; //RESTORE DELETE BTN
 
-  //set img captions
+  //create img dropdown menu
+  const dropdown = document.createElement("div");
+  // dropdown.type = "button";
+  dropdown.classList.add("gallery-dropdown-icon");
+
+  //create figure caption
   const figcaption = document.createElement("figcaption");
   figcaption.classList.add("caption");
-  figcaption.insertAdjacentHTML(
+  //set captions in a div
+  const captionTxt = document.createElement("div");
+  captionTxt.classList.add("caption-text");
+  figcaption.appendChild(checkbox);
+  figcaption.appendChild(captionTxt);
+
+  captionTxt.insertAdjacentHTML(
     "beforeend",
     `<h2 class='caption__city'>${destination.city}</h2>`
   );
-  figcaption.insertAdjacentHTML(
+  captionTxt.insertAdjacentHTML(
     "beforeend",
     `<h3 class='caption__country'>${destination.country}</h3>`
   );
-  // add captions to destination
+
+  //Events
+  // move checked items to 'visited' list
+  checkbox.addEventListener("click", () => {
+    toggleButtonVisited(destination);
+    setTimeout(render, 1000);
+  });
+
+  // delete an item
+  deleteBtn.addEventListener("click", () => {
+    deleteItem(destination);
+  });
+
+  //Append to wrapper (figure el)
+  elDestination.appendChild(img);
+  elDestination.appendChild(dropdown);
+  elDestination.appendChild(deleteBtn);
   elDestination.appendChild(figcaption);
+
   // Return the destination HTML
   return elDestination;
 }
@@ -146,7 +165,6 @@ function showAll() {
 
 function openForm() {
   form.classList.add("form-state--open");
-  console.log("click");
 }
 
 function closeForm() {
@@ -169,7 +187,6 @@ function restoreNav() {
 function init() {
   cacheDom();
   bindEvents();
-  render();
 }
 
 const module = { init };

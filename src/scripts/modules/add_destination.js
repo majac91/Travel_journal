@@ -6,7 +6,7 @@ let radioBucketlist;
 let cityInput;
 let countryInput;
 let photoInput;
-//new list item state before the item is added
+let fileInput;
 let formState = {
   city: null,
   country: null,
@@ -37,9 +37,6 @@ function bindEvents() {
   });
   countryInput.addEventListener("change", (event) => {
     updateFormState("country", event.target.value);
-  });
-  photoInput.addEventListener("change", (event) => {
-    updateFormState("photo", event.target.value);
   });
 }
 

@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/majac91/Travel_journal#readme",
   "dependencies": {
-    "moment": "^2.27.0"
+    "medium-style-confirm": "^0.4.6",
+    "moment": "^2.27.0",
+    "parse": "^2.17.0"
   },
   "devDependencies": {
     "parcel": "^1.12.4",
