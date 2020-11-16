@@ -1,12 +1,12 @@
-import { deleteItem, toggleButtonVisited } from "../store.js";
+import { deleteItem, toggleButtonHome } from "../store.js";
 import events from "./pubsub.js";
 
 // Create gallery elements and render them
 
 //Variables
 let buttons;
-let visited;
-let bucketlist;
+let home;
+let places;
 let add;
 let all;
 let gallery;
@@ -18,8 +18,8 @@ let navbar;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".buttons").children);
-  visited = buttons[1];
-  bucketlist = buttons[2];
+  home = buttons[1];
+  places = buttons[2];
   all = buttons[3];
   add = buttons[4];
   navbar = document.querySelector(".navbar");
@@ -30,8 +30,8 @@ function cacheDom() {
 }
 
 function bindEvents() {
-  visited.addEventListener("click", addVisited);
-  bucketlist.addEventListener("click", addBucketlist);
+  home.addEventListener("click", addClassHome);
+  places.addEventListener("click", addClassPlaces);
   all.addEventListener("click", showAll);
   add.addEventListener("click", openForm);
   closeFormBtn.addEventListener("click", closeForm);
@@ -50,9 +50,9 @@ function renderDestination(destination) {
   elDestination.classList.add("gallery-img--container");
 
   // add the correct class to elDestination wrapper
-  destination.visited === true
-    ? elDestination.classList.add("visited")
-    : elDestination.classList.add("bucketlist");
+  destination.home === true
+    ? elDestination.classList.add("home")
+    : elDestination.classList.add("places");
 
   // create img element
   const img = document.createElement("img");
@@ -63,9 +63,8 @@ function renderDestination(destination) {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.classList.add("gallery-checkbox");
-
-  //check all visited list checkboxes
-  if (destination.visited) {
+  //check all home list checkboxes
+  if (destination.home) {
     checkbox.setAttribute("checked", "checked");
   }
 
@@ -98,9 +97,9 @@ function renderDestination(destination) {
   );
 
   //Events
-  // move checked items to 'visited' list
+  // move checked items to 'home' list
   checkbox.addEventListener("click", () => {
-    toggleButtonVisited(destination);
+    toggleButtonHome(destination);
   });
 
   // delete an item
@@ -125,13 +124,6 @@ function render() {
     const elDestination = renderDestination(destination);
     gallery.appendChild(elDestination);
   });
-  // let magicGrid = new MagicGrid({
-  //   container: "#gallery", // Required. Can be a class, id, or an HTMLElement.
-  //   items: document.querySelectorAll("#visited").length, // For a grid with 20 items. Required for dynamic content.
-  //   animate: true, // Optional.
-  // });
-
-  // magicGrid.listen();
 }
 
 function setActive() {
@@ -150,29 +142,23 @@ function setActive() {
       activeBtn = current;
     });
   });
-  //set visited as the default active button on page load
+  //set home as the default active button on page load
   document.querySelector(".button__visited").click();
 }
 
-function addVisited() {
-  gallery.classList.add("visited");
-  gallery.classList.remove("bucketlist");
+function addClassHome() {
+  gallery.classList.add("home");
+  gallery.classList.remove("places");
 }
 
-function addBucketlist() {
-  gallery.classList.add("bucketlist");
-  gallery.classList.remove("visited");
-  // let bucketlistGrid = new MagicGrid({
-  //   container: "#gallery",
-  //   items: document.querySelectorAll(".bucketlist").length, // Length required for dynamic content.
-  //   animate: true, // Optional.
-  // });
-  // bucketlistGrid.listen();
+function addClassPlaces() {
+  gallery.classList.add("places");
+  gallery.classList.remove("home");
 }
 
 function showAll() {
-  gallery.classList.remove("visited");
-  gallery.classList.remove("bucketlist");
+  gallery.classList.remove("home");
+  gallery.classList.remove("places");
 }
 
 function openForm() {

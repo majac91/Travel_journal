@@ -97,6 +97,7 @@ button {
   padding: 5rem;
 
   .button {
+    background: white;
     display: inline-block;
     font-family: "TwCenW01-Medium";
     font-size: 1em;
@@ -169,7 +170,7 @@ button {
   font-size: 1.3rem;
   background: darken($color: $grey, $amount: 10%);
 }
-.form__close {
+.form-btn__close {
   background: darken($color: $grey, $amount: 5%);
 }
 .form-btn__close::before {
@@ -229,24 +230,24 @@ button {
 }
 
 //Switching lists on click
-.gallery figure.visited,
-.gallery figure.bucketlist {
+.gallery figure.home,
+.gallery figure.places {
   display: block;
 }
 
-.gallery.visited figure.visited {
+.gallery.home figure.home {
   display: block;
 }
 
-.gallery.visited figure.bucketlist {
+.gallery.home figure.places {
   display: none;
 }
 
-.gallery.bucketlist figure.bucketlist {
+.gallery.places figure.places {
   display: block;
 }
 
-.gallery.bucketlist figure.visited {
+.gallery.places figure.home {
   display: none;
 }
 
@@ -299,7 +300,6 @@ button {
     opacity: 0;
   }
   &:checked {
-    background: $grey;
     border: $grey;
     &::before {
       opacity: 1;
