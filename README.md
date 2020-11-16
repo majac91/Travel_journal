@@ -30,7 +30,8 @@ Some of the objectives include:
 :ballot_box_with_check: use a serverless database
 
 :black_square_button:   style the page 
-
+:black_square_button:   learn and refactor using Handlebars
+:black_square_button:   publish
 
 
 ## Installation
