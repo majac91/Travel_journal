@@ -88,7 +88,7 @@ button {
   height: 8rem;
 }
 
-.buttons {
+.main-btns {
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -96,7 +96,7 @@ button {
   font-size: 1.8rem;
   padding: 5rem;
 
-  .button {
+  .btn {
     background: white;
     display: inline-block;
     font-family: "TwCenW01-Medium";
@@ -109,11 +109,11 @@ button {
   .flaticon-016-add:before {
     content: "\f10f";
   }
-  .button:hover {
+  .btn:hover {
     border-bottom: 1px solid black;
   }
-  .buttons__view:hover,
-  .button__add:hover {
+  .btn__view:hover,
+  .btn__add:hover {
     border-bottom: none;
   }
 }
@@ -121,12 +121,9 @@ button {
 //Clicked button
 .active-button {
   border-bottom: 1px solid black;
-  &:first-child,
-  &:last-child {
-    border-bottom: none;
-  }
 }
 
+//Closed form
 .form-state--closed {
   visibility: hidden;
   height: 0;
@@ -144,6 +141,8 @@ button {
     padding: 0.5rem;
   }
 }
+
+//Open form
 .form-state--open {
   visibility: visible;
   // background: $grey;
@@ -162,7 +161,7 @@ button {
   justify-content: center;
   align-items: center;
 }
-.form-btn__submit {
+.form__submit {
   text-transform: uppercase;
   font-weight: 500;
   padding: 1rem 2.5rem;
@@ -170,10 +169,10 @@ button {
   font-size: 1.3rem;
   background: darken($color: $grey, $amount: 10%);
 }
-.form-btn__close {
+.form__close {
   background: darken($color: $grey, $amount: 5%);
 }
-.form-btn__close::before {
+.form__close::before {
   content: "\f100";
   display: block;
   position: relative;
@@ -193,7 +192,7 @@ button {
   }
 }
 
-.gallery-img--container {
+.gallery-img__container {
   width: 50rem;
   // position: relative;
 }
@@ -252,20 +251,20 @@ button {
 }
 
 //img captions
-.caption {
+.caption__container {
   line-height: 1.5;
   margin: 1rem 0;
   display: flex;
-  .caption-text {
+  .caption__text {
     margin-left: 5px;
   }
-  // .caption__city {
-  //   font-weight: 300;
-  //   font-size: 2rem;
-  //   text-transform: capitalize;
-  //   letter-spacing: 1px;
-  // }
-  .caption__country {
+  .img__caption {
+    font-weight: 300;
+    font-size: 2rem;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+  }
+  .img__date {
     font-weight: 300;
     font-size: 1.2rem;
     letter-spacing: 2px;
@@ -428,8 +427,8 @@ button {
   align-items: center;
 }
 
-#next-btn,
-#prev-btn {
+.next-btn,
+.prev-btn {
   cursor: pointer;
   background: transparent;
   height: 100%;

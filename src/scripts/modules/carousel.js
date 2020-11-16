@@ -10,8 +10,8 @@ let lastClone;
 
 function cacheDom() {
   slideContainer = document.querySelector(".slides");
-  nextBtn = document.getElementById("next-btn");
-  prevBtn = document.getElementById("prev-btn");
+  nextBtn = document.querySelector(".next-btn");
+  prevBtn = document.querySelector(".prev-btn");
   interval = 5000;
   slides = document.querySelectorAll(".slide");
   index = 0;

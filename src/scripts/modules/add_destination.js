@@ -13,12 +13,12 @@ let formState = {
 };
 
 function cacheDom() {
-  form = document.getElementById("add-city-form");
+  form = document.getElementById("add-photo-form");
   radioBtns = document.querySelectorAll("input[type=radio]");
-  radioHome = document.getElementById("rd-visited");
-  radioPlaces = document.getElementById("rd-bucketlist");
-  captionInput = document.getElementById("inputCity");
-  dateInput = document.getElementById("inputCountry");
+  radioHome = document.getElementById("rd-home");
+  radioPlaces = document.getElementById("rd-places");
+  captionInput = document.getElementById("inputCaption");
+  dateInput = document.getElementById("inputDate");
   photoInput = document.getElementById("inputImg");
 }
 
@@ -71,4 +71,3 @@ function init() {
 
 const module = { init };
 export default module;
-// export { form };

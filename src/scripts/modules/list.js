@@ -17,15 +17,16 @@ let closeFormBtn;
 let navbar;
 
 function cacheDom() {
-  buttons = Array.from(document.querySelector(".buttons").children);
+  buttons = Array.from(document.querySelector(".main-btns").children);
+  console.log(buttons);
+  all = buttons[0];
   home = buttons[1];
   places = buttons[2];
-  all = buttons[3];
-  add = buttons[4];
+  add = buttons[3];
   navbar = document.querySelector(".navbar");
   gallery = document.querySelector(".gallery");
   activeBtn = null;
-  form = document.getElementById("add-city-form");
+  form = document.getElementById("add-photo-form");
   closeFormBtn = document.getElementById("close");
 }
 
@@ -47,7 +48,7 @@ function bindEvents() {
 function renderDestination(destination) {
   // create destination wrapper
   const elDestination = document.createElement("figure");
-  elDestination.classList.add("gallery-img--container");
+  elDestination.classList.add("gallery-img__container");
 
   // add the correct class to elDestination wrapper
   destination.home === true
@@ -80,20 +81,20 @@ function renderDestination(destination) {
 
   //create figure caption
   const figcaption = document.createElement("figcaption");
-  figcaption.classList.add("caption");
+  figcaption.classList.add("caption__container");
   //set captions in a div
   const captionTxt = document.createElement("div");
-  captionTxt.classList.add("caption-text");
+  captionTxt.classList.add("caption__text");
   figcaption.appendChild(checkbox);
   figcaption.appendChild(captionTxt);
 
   captionTxt.insertAdjacentHTML(
     "beforeend",
-    `<h2 class='caption__city'>${destination.city}</h2>`
+    `<h2 class='img__caption'>${destination.city}</h2>`
   );
   captionTxt.insertAdjacentHTML(
     "beforeend",
-    `<h3 class='caption__country'>${destination.country}</h3>`
+    `<h3 class='img__date'>${destination.country}</h3>`
   );
 
   //Events
@@ -143,7 +144,7 @@ function setActive() {
     });
   });
   //set home as the default active button on page load
-  document.querySelector(".button__visited").click();
+  document.querySelector(".btn__all").click();
 }
 
 function addClassHome() {
