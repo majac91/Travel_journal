@@ -3,70 +3,113 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="//db.onlinewebfonts.com/c/c862d8098ce50a7dc042ebbb9b94bbc8?family=TwCenW01-Medium"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link rel="stylesheet" href="./css/style.scss" />
+    <!-- fonts -->
     <link
       rel="stylesheet"
       media="screen"
       href="https://fontlibrary.org/face/germano"
       type="text/css"
     />
-    <link rel="stylesheet" href="./icons/font/flaticon.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icons -->
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="./icons/font/flaticon.css"
+      type="text/css"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
       integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./css/style.scss" />
     <script
       type="text/javascript"
       src="https://npmcdn.com/parse/dist/parse.min.js"
     ></script>
-    <!-- <link rel="stylesheet" href="./css/popups.css" /> -->
+    <script src="https://unpkg.com/magic-grid/dist/magic-grid.cjs.js"></script>
+
     <title>places-been</title>
   </head>
   <body>
     <!-- N A V B A R  -->
     <nav class="navbar">
-      <div class="container container--space-between">
-        <a href="#" class="navbar-logo">
-          <h1 class="navbar__title">places been</h1>
-          <h2 class="navbar__subtitle">a travel journal</h2>
-        </a>
-        <ul class="navbar__links">
-          <li class="navbar__link">
-            <a href="#">About</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#main-buttons">My cities</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-      <!-- <ul class="navbar--social container--social">
-        <li class="social__links">
-          <a href="#">Ig</a>
+      <ul class="navbar__links">
+        <li class="navbar__list">
+          <a class="navbar__link" href="#">Hey,</a>
         </li>
-        <li class="social__links">
-          <a href="#">Fb</a>
+        <li class="navbar__list">
+          <a class="navbar__link" href="#main-buttons">Stories,</a>
         </li>
-      </ul> -->
+        <li class="navbar__list">
+          <a class="navbar__link" href="#">About</a>
+        </li>
+      </ul>
     </nav>
-    <!-- H E A D E R -->
-    <header class="header container--main">
-      <img class="header__img" src="./img/header2.jpg" alt="" />
+
+    <!-- H E A D E R  -->
+    <header class="header">
+      <!-- slideshow -->
+      <section class="container--slideshow">
+        <div class="slides">
+          <!-- <div class="slide slide-1">
+            <img src="./img/photo3.jpg" alt="" />
+          </div> -->
+          <div class="slide slide-1">
+            <img
+              src="./img/7021E2B6-FDF0-4840-9645-E0D002979AE6-623DEF5E-322E-477B-9D60-201454B06864.JPG"
+              alt=""
+            />
+          </div>
+          <div class="slide slide-2">
+            <img src="./img/photo3.jpg" alt="" />
+          </div>
+          <div class="slide slide-3">
+            <img
+              src="./img/DDBFD3DD-390B-4D47-A741-CD6C238275BD-818B58A1-757C-4FFE-99B9-BDE660736077.JPG"
+              alt=""
+            />
+          </div>
+          <div class="slide slide-4">
+            <img src="./img/photo25.jpg" alt="" />
+          </div>
+        </div>
+        <div class="slide-controls">
+          <button id="prev-btn"></button>
+          <button id="next-btn"></button>
+        </div>
+      </section>
+      <!-- headline -->
+      <section class="heading container--heading">
+        <h2 class="heading__subtitle">Hey, welcome and take a look</h2>
+        <h1 class="heading__title">
+          This is a photographic journal of
+          <span class="heading__name">Maja Cvetkovic</span>, an amateur
+          photographer based in Nis, Serbia.
+        </h1>
+        <label class="scroll__label">Scroll down</label>
+        <button class="scroll__btn">
+          <img
+            class="scroll__icon"
+            src="./icons/png/next.png"
+            alt="scroll-down-icon"
+          />
+        </button>
+      </section>
     </header>
+
     <!-- F O R M  -->
-    <form
-      id="add-city-form"
-      class="form add-city-form form-state--closed container--main"
-    >
+    <form id="add-city-form" class="form add-city-form form-state--closed">
       <label class="form__label form__label--city" for="inputCity" id="cityName"
         >City</label
       >
@@ -93,7 +136,6 @@
         >Photo</label
       >
       <input type="file" id="inputImg" class="form__input form__input--file" />
-      <!-- <input type="url" id="inputImg" class="form__input form__input--url" /> -->
       <!-- radio buttons-->
       <div class="radio-buttons">
         <input
@@ -121,12 +163,13 @@
       <button
         type="button"
         id="close"
+        class="form__close"
         class="form-btn__close flaticon-001-cancel-3"
       ></button>
     </form>
 
     <!--M A I N - buttons-->
-    <div id="main-buttons" class="buttons container--main">
+    <div id="main-buttons" class="buttons">
       <span class="button buttons__view">My places:</span>
       <button class="button button__visited" type="button">Visited</button>
       <button class="button button__buckelist" type="button">Bucketlist</button>
@@ -138,9 +181,8 @@
     </div>
 
     <!--M A I N - gallery-->
-    <main class="gallery container--main" id="gallery"></main>
+    <main class="gallery container" id="gallery"></main>
 
     <script src="main.js"></script>
-    <!-- <script src="./scripts/modules/popups.js"></script> -->
   </body>
 </html>

@@ -9,16 +9,16 @@ Parse.initialize(
 );
 Parse.serverURL = "https://parseapi.back4app.com/";
 
-const Destinations = Parse.Object.extend("Destinations");
+const Destinations = Parse.Object.extend("Gallery");
 const destinations = new Destinations();
 const query = new Parse.Query(Destinations);
 
 //get a list from server and publish
 export async function retreiveList() {
-  query.equalTo("visited", true);
+  query.equalTo("home", true);
   const visitedQuery = await query.find();
 
-  query.equalTo("visited", false);
+  query.equalTo("home", false);
   const bucketlistQuery = await query.find();
 
   const destList = [...visitedQuery, ...bucketlistQuery];
@@ -27,9 +27,9 @@ export async function retreiveList() {
 
   for (let i = 0; i < destList.length; i++) {
     let object = destList[i];
-    let city = object.get("city");
-    let country = object.get("country");
-    let visited = object.get("visited");
+    let city = object.get("caption");
+    let country = object.get("date");
+    let visited = object.get("home");
     let photo = object.get("photo").url();
     let listItem = { city, country, visited, photo };
     retreivedList.push(listItem);
@@ -77,6 +77,7 @@ export async function toggleButtonVisited(item) {
   try {
     const object = await updateQuery[0].set("visited", item.visited).save();
     console.log("The object was updated successfully.");
+    setTimeout(retreiveList, 1000);
   } catch (error) {
     console.log(error);
   }

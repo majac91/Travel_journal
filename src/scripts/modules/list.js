@@ -101,7 +101,6 @@ function renderDestination(destination) {
   // move checked items to 'visited' list
   checkbox.addEventListener("click", () => {
     toggleButtonVisited(destination);
-    setTimeout(render, 1000);
   });
 
   // delete an item
@@ -126,6 +125,13 @@ function render() {
     const elDestination = renderDestination(destination);
     gallery.appendChild(elDestination);
   });
+  // let magicGrid = new MagicGrid({
+  //   container: "#gallery", // Required. Can be a class, id, or an HTMLElement.
+  //   items: document.querySelectorAll("#visited").length, // For a grid with 20 items. Required for dynamic content.
+  //   animate: true, // Optional.
+  // });
+
+  // magicGrid.listen();
 }
 
 function setActive() {
@@ -156,6 +162,12 @@ function addVisited() {
 function addBucketlist() {
   gallery.classList.add("bucketlist");
   gallery.classList.remove("visited");
+  // let bucketlistGrid = new MagicGrid({
+  //   container: "#gallery",
+  //   items: document.querySelectorAll(".bucketlist").length, // Length required for dynamic content.
+  //   animate: true, // Optional.
+  // });
+  // bucketlistGrid.listen();
 }
 
 function showAll() {
