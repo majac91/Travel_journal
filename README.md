@@ -54,6 +54,7 @@ npm run dev
 Styling and refactoring 
 
 ## Usage
+Add new cities to the list of visited cities or bucketlist, check off bucketlist items or delete cities.
 
 
 ## Contributing
