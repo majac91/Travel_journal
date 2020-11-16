@@ -51,7 +51,7 @@ npm run dev
 ```
 
 ## Current stage
-In development
+Styling and refactoring 
 
 ## Usage
 
