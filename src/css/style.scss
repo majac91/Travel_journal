@@ -181,19 +181,19 @@ button {
 }
 
 // Gallery
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  //fixes the last row formating
-  &::after {
-    content: "";
-    width: 50rem;
-  }
-}
+// .gallery {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   //fixes the last row formating
+//   &::after {
+//     content: "";
+//     width: 50rem;
+//   }
+// }
 
 .gallery-img__container {
-  width: 50rem;
+  width: 30rem;
   // position: relative;
 }
 .gallery-img {
@@ -328,21 +328,6 @@ button {
   transform: translateX(-50vw);
   transition: all 0.7s ease;
 }
-// .gallery
-//   .bucketlist
-//   .caption
-//   .gallery-checkbox:checked
-//   > .caption-text
-//   > .caption__city {
-//   &::before {
-//     position: absolute;
-//     content: attr(data-content);
-//     color: lightgray;
-//     text-decoration: line-through;
-//     text-decoration-thickness: 3px;
-//     text-decoration-color: black;
-//   }
-// }
 
 //Header
 .header {
@@ -376,6 +361,16 @@ button {
     font-style: italic;
     font-size: 3.5rem;
   }
+}
+
+.heading--visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .scroll__label {

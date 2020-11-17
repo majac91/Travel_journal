@@ -15,10 +15,10 @@ let storedList;
 let form;
 let closeFormBtn;
 let navbar;
+let magicGrid;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".main-btns").children);
-  console.log(buttons);
   all = buttons[0];
   home = buttons[1];
   places = buttons[2];
@@ -42,6 +42,15 @@ function bindEvents() {
   events.subscribe("listRetreived", (list) => {
     storedList = list;
     render();
+    // Only se magic grid if it does not exist yet
+    if (!magicGrid) {
+      magicGrid = new MagicGrid({
+        container: "#gallery", // Required. Can be a class, id, or an HTMLElement.
+        items: storedList.length, // Required for dynamic content.
+        animate: true, // Optional.
+      });
+      magicGrid.listen();
+    }
   });
 }
 

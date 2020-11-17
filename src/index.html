@@ -37,8 +37,7 @@
       type="text/javascript"
       src="https://npmcdn.com/parse/dist/parse.min.js"
     ></script>
-    <script src="https://unpkg.com/magic-grid/dist/magic-grid.cjs.js"></script>
-
+    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
     <title>places-been</title>
   </head>
   <body>
@@ -62,9 +61,6 @@
       <!-- slideshow -->
       <section class="container--slideshow">
         <div class="slides">
-          <!-- <div class="slide slide-1">
-            <img src="./img/photo3.jpg" alt="" />
-          </div> -->
           <div class="slide slide-1">
             <img src="./img/photo1.jpg" alt="" />
           </div>
@@ -79,21 +75,24 @@
           </div>
         </div>
         <div class="slide-controls">
-          <button class="prev-btn"></button>
-          <button class="next-btn"></button>
+          <button class="prev-btn" aria-label="previous photo"></button>
+          <button class="next-btn" aria-label="next photo"></button>
         </div>
       </section>
       <!-- headline -->
       <section class="heading container--heading">
-        <h2 class="heading__subtitle">Hey, welcome and take a look</h2>
-        <h1 class="heading__title">
+        <h1 class="heading--visually-hidden">
+          Maja Cvetkovic - Photographic Journal
+        </h1>
+        <p class="heading__subtitle">Hey, welcome and take a look</p>
+        <p class="heading__title">
           This is a photographic journal of
           <span class="heading__name">Maja Cvetkovic</span>, an amateur
           photographer based in Nis, Serbia.
-        </h1>
+        </p>
         <label class="scroll__label">Scroll down</label>
         <button class="scroll__btn">
-          <a href="#main-buttons"
+          <a href="#main-btns"
             ><img
               class="scroll__icon"
               src="./icons/png/next.png"
