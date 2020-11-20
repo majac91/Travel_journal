@@ -103,7 +103,16 @@
       </section>
     </header>
 
-    <!-- F O R M  -->
+    <!--M A I N -->
+    <!-- toggle view buttons -->
+    <div id="main-btns" class="main-btns">
+      <button class="btn btn__all" type="button">All</button>
+      <button class="btn btn__home" type="button">Home</button>
+      <button class="btn btn__places" type="button">Places</button>
+      <button class="btn btn__add flaticon-016-add" type="button"></button>
+    </div>
+
+    <!--add new photo form -->
     <form id="add-photo-form" class="form form-state--closed">
       <label for="inputCaption" class="form__label">Caption</label>
       <input type="text" name="text" id="inputCaption" class="form__input" />
@@ -129,15 +138,7 @@
       ></button>
     </form>
 
-    <!--M A I N - buttons-->
-    <div id="main-btns" class="main-btns">
-      <button class="btn btn__all" type="button">All</button>
-      <button class="btn btn__home" type="button">Home</button>
-      <button class="btn btn__places" type="button">Places</button>
-      <button class="btn btn-add flaticon-016-add" type="button"></button>
-    </div>
-
-    <!--M A I N - gallery-->
+    <!-- gallery -->
     <main class="gallery container" id="gallery"></main>
 
     <script src="main.js"></script>

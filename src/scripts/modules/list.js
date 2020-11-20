@@ -45,12 +45,11 @@ function bindEvents() {
 }
 
 function renderDestination(destination) {
-  // create destination wrapper
-
+  // create figure wrapper
   const elDestination = document.createElement("figure");
   elDestination.classList.add("gallery-img__container");
 
-  // add the correct class to elDestination wrapper
+  // add correct class to wrapper
   destination.home === true
     ? elDestination.classList.add("home")
     : elDestination.classList.add("places");
@@ -60,6 +59,23 @@ function renderDestination(destination) {
   img.src = destination.photo;
   img.classList.add("gallery-img");
 
+  //figure caption
+  const figcaption = document.createElement("figcaption");
+  figcaption.classList.add("caption__container");
+
+  //captions div
+  const captionTxt = document.createElement("div");
+  captionTxt.classList.add("caption__text");
+
+  captionTxt.insertAdjacentHTML(
+    "beforeend",
+    `<h2 class='img__caption'>${destination.city}</h2>`
+  );
+  captionTxt.insertAdjacentHTML(
+    "beforeend",
+    `<h3 class='img__date'>${destination.country}</h3>`
+  );
+
   // img overlay
   const imgOverlay = document.createElement("div");
   imgOverlay.classList.add("gallery-img__overlay");
@@ -67,7 +83,8 @@ function renderDestination(destination) {
   // img overlay close btn
   const closeBtn = document.createElement("button");
   closeBtn.type = "button";
-  closeBtn.classList.add("gallery-img__overlay-close");
+  closeBtn.classList.add("overlay__close");
+  closeBtn.classList.add("flaticon-001-cancel-3");
 
   //create checkbox
   const checkbox = document.createElement("input");
@@ -78,40 +95,25 @@ function renderDestination(destination) {
     checkbox.setAttribute("checked", "checked");
   }
 
-  // create delete button
+  // delete button
   const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("gallery__delete-btn");
-  deleteBtn.innerText = "Delete";
+  deleteBtn.classList.add("overlay__delete");
+  deleteBtn.classList.add("flaticon-020-disable");
 
-  //create edit button
+  //edit button
   const editBtn = document.createElement("button");
   editBtn.type = "button";
   editBtn.classList.add("gallery__edit-btn");
 
-  //append overlay with delete and close btns to edit btn
-  editBtn.appendChild(imgOverlay);
-  imgOverlay.appendChild(deleteBtn);
-  closeBtn.classList.add("flaticon-001-cancel-3");
+  //append elements
+  elDestination.appendChild(img);
+  elDestination.appendChild(imgOverlay);
+  elDestination.appendChild(editBtn);
+  elDestination.appendChild(figcaption);
   imgOverlay.appendChild(closeBtn);
-
-  //create figure caption
-  const figcaption = document.createElement("figcaption");
-  figcaption.classList.add("caption__container");
-
-  //set captions in a div
-  const captionTxt = document.createElement("div");
-  captionTxt.classList.add("caption__text");
-  figcaption.appendChild(checkbox);
+  imgOverlay.appendChild(deleteBtn);
+  imgOverlay.appendChild(checkbox);
   figcaption.appendChild(captionTxt);
-
-  captionTxt.insertAdjacentHTML(
-    "beforeend",
-    `<h2 class='img__caption'>${destination.city}</h2>`
-  );
-  captionTxt.insertAdjacentHTML(
-    "beforeend",
-    `<h3 class='img__date'>${destination.country}</h3>`
-  );
 
   //Events
   // move checked items to 'home' list
@@ -129,10 +131,9 @@ function renderDestination(destination) {
     elDestination.classList.toggle("edit__active");
   });
 
-  //Append to wrapper (figure el)
-  elDestination.appendChild(img);
-  elDestination.appendChild(editBtn);
-  elDestination.appendChild(figcaption);
+  closeBtn.addEventListener("click", () => {
+    elDestination.classList.toggle("edit__active");
+  });
 
   // Return the destination HTML
   return elDestination;

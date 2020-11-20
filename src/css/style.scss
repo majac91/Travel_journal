@@ -112,7 +112,6 @@ button {
   .btn:hover {
     border-bottom: 1px solid black;
   }
-  .btn__view:hover,
   .btn__add:hover {
     border-bottom: none;
   }
@@ -145,8 +144,7 @@ button {
 //Open form
 .form-state--open {
   visibility: visible;
-  // background: $grey;
-  background: darken($color: $grey, $amount: 5%);
+  background: lighten($color: $grey, $amount: 15%);
   z-index: 1000;
   font-size: 1.8rem;
   position: fixed;
@@ -164,13 +162,13 @@ button {
 .form__submit {
   text-transform: uppercase;
   font-weight: 500;
-  padding: 1rem 2.5rem;
+  padding: 1rem 3.5rem;
   margin: 1.5rem;
   font-size: 1.3rem;
-  background: darken($color: $grey, $amount: 10%);
+  background: lighten($color: $grey, $amount: 2%);
 }
 .form__close {
-  background: darken($color: $grey, $amount: 5%);
+  background: lighten($color: $grey, $amount: 15%);
 }
 .form__close::before {
   content: "\f100";
@@ -194,7 +192,7 @@ button {
 
 .gallery-img__container {
   width: 30rem;
-  // height: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -210,47 +208,6 @@ button {
   display: none;
 }
 
-.gallery-img__container:hover .gallery__edit-btn {
-  position: relative;
-  top: -4.7rem;
-  right: 2rem;
-  float: right;
-  background-color: transparentize($color: white, $amount: 0.2);
-  border-radius: 50%;
-  display: block;
-  height: 4rem;
-  width: 4rem;
-  outline: none;
-  border: none;
-}
-
-.gallery-img__container .gallery-img__overlay {
-  display: none;
-}
-
-.gallery-img__container.edit__active .gallery-img__overlay {
-  display: block;
-  position: relative;
-  height: 5rem;
-  width: 30rem;
-  left: -24rem;
-  top: -2.3rem;
-  bottom: 0;
-  right: 0;
-}
-
-.edit__active .gallery__edit-btn > .gallery-img__overlay {
-  display: block;
-  background-color: white;
-  position: relative;
-  height: 5rem;
-  width: 30rem;
-  left: -24rem;
-  top: -2.3rem;
-  bottom: 0;
-  right: 0;
-}
-
 .gallery__edit-btn::before {
   content: "";
   height: 2rem;
@@ -260,22 +217,65 @@ button {
   background-size: cover;
 }
 
-.gallery-img__overlay-close {
-  display: none;
-}
-
-.edit__active .gallery-img__overlay-close.flaticon-001-cancel-3 {
-  content: "\f10f";
+.gallery-img:hover ~ .gallery__edit-btn {
   display: block;
   position: relative;
-  right: -23rem;
-  top: -1rem;
+  height: 4rem;
+  width: 4rem;
+  top: -9rem;
+  right: 1rem;
+  float: right;
+  background-color: transparentize($color: white, $amount: 0.2);
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  outline: none;
+  border: none;
+}
+
+.gallery-img__container .gallery-img__overlay {
+  position: relative;
+  left: 0rem;
+  bottom: 4.8rem;
+  top: -4rem;
+  visibility: hidden;
+  height: 4rem;
+  transition: transform 1s ease;
+  transform: translateY(4rem);
+}
+
+.gallery-img__container.edit__active .gallery-img__overlay {
+  display: flex;
+  flex-direction: row-reverse;
+  background: white;
+  opacity: 1;
+  visibility: visible;
+  // animation: fadeUp 0.5s ease-in-out;
+  transform: translateY(0rem);
+}
+
+.edit__active .gallery__edit-btn > .gallery-img__overlay {
+  background-color: white;
+  height: 5rem;
+  width: 30rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.overlay__close {
+  visibility: hidden;
+}
+
+.edit__active .overlay__close.flaticon-001-cancel-3 {
+  content: "\f10f";
+  visibility: visible;
+  margin-right: 2.5rem;
   background: white;
 }
 
-// .gallery-img:hover ~ .gallery__edit-btn {
-//   display: block;
-// }
+.edit__active .flaticon-020-disable {
+  background: white;
+}
 
 //Switching lists on click
 .gallery figure.home,
@@ -302,8 +302,9 @@ button {
 //img captions
 .caption__container {
   line-height: 1.5;
-  margin: 1rem 0;
   display: flex;
+  position: relative;
+  top: -2rem;
   .caption__text {
     margin-left: 5px;
   }
@@ -323,27 +324,27 @@ button {
 
 .gallery-checkbox {
   position: relative;
-  top: 0.8rem;
-  width: 1.5rem;
-  height: 1.5rem;
+  top: 1.2rem;
+  width: 1.8rem;
+  height: 1.8rem;
   color: white;
-  border: 1px solid rgb(163, 161, 161);
-  border-radius: 4px;
+  border: 1px solid black;
+  // border-radius: 4px;
   appearance: none;
   outline: 0;
   cursor: pointer;
   transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
   &::before {
     position: absolute;
+    top: -0.4rem;
+    color: black;
     content: "";
     display: block;
-    top: -3px;
-    left: 2px;
-    width: 7px;
-    height: 13px;
+    width: 0.8rem;
+    height: 2rem;
     border-style: solid;
     border-color: black;
-    border-width: 0 2px 2px 0;
+    border-width: 0 1px 1px 0;
     transform: rotate(45deg);
     opacity: 0;
   }
@@ -353,24 +354,6 @@ button {
       opacity: 1;
     }
   }
-}
-// //cross out visited city
-// .gallery.visited figure.visited .caption__city,
-// .gallery figure.visited .caption__city {
-//   text-decoration: line-through;
-//   text-decoration-thickness: 0.7px;
-//   transition: clip-path 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-// }
-
-.caption__city {
-  font-weight: 300;
-  font-size: 2rem;
-  text-transform: capitalize;
-  letter-spacing: 1px;
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-  transition: clip-path 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .next-slide {
