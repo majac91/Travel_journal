@@ -129,10 +129,12 @@ function renderDestination(destination) {
   // open edit menu
   editBtn.addEventListener("click", () => {
     elDestination.classList.toggle("edit__active");
+    editBtn.style.opacity = "0";
   });
 
   closeBtn.addEventListener("click", () => {
     elDestination.classList.toggle("edit__active");
+    editBtn.style.opacity = "1";
   });
 
   // Return the destination HTML
