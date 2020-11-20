@@ -181,52 +181,101 @@ button {
 }
 
 // Gallery
-// .gallery {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-between;
-//   //fixes the last row formating
-//   &::after {
-//     content: "";
-//     width: 50rem;
-//   }
-// }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  //fixes the last row formating
+  &::after {
+    content: "";
+    width: 30rem;
+  }
+}
 
 .gallery-img__container {
   width: 30rem;
-  // position: relative;
+  // height: 100%;
+  position: relative;
 }
+
 .gallery-img {
   width: 100%;
-  // position: absolute;
-  // height: 30rem;
   display: block;
   opacity: 1;
   object-fit: cover;
   transition: opacity 0.3s ease;
-  &:hover {
-    opacity: 0.8;
-  }
 }
 
-.gallery-dropdown-icon {
+.gallery__edit-btn {
+  display: none;
+}
+
+.gallery-img__container:hover .gallery__edit-btn {
   position: relative;
-  top: -40px;
-  right: 20px;
+  top: -4.7rem;
+  right: 2rem;
   float: right;
+  background-color: transparentize($color: white, $amount: 0.2);
+  border-radius: 50%;
+  display: block;
+  height: 4rem;
+  width: 4rem;
+  outline: none;
+  border: none;
 }
 
-.gallery-dropdown-icon::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f141";
-  font-size: 2.5rem;
-  color: black;
-  opacity: 0;
+.gallery-img__container .gallery-img__overlay {
+  display: none;
 }
-.gallery-img:hover ~ .gallery-dropdown-icon::before {
-  opacity: 1;
+
+.gallery-img__container.edit__active .gallery-img__overlay {
+  display: block;
+  position: relative;
+  height: 5rem;
+  width: 30rem;
+  left: -24rem;
+  top: -2.3rem;
+  bottom: 0;
+  right: 0;
 }
+
+.edit__active .gallery__edit-btn > .gallery-img__overlay {
+  display: block;
+  background-color: white;
+  position: relative;
+  height: 5rem;
+  width: 30rem;
+  left: -24rem;
+  top: -2.3rem;
+  bottom: 0;
+  right: 0;
+}
+
+.gallery__edit-btn::before {
+  content: "";
+  height: 2rem;
+  width: 2rem;
+  display: inline-block;
+  background-image: url("../icons/png/edit1.png");
+  background-size: cover;
+}
+
+.gallery-img__overlay-close {
+  display: none;
+}
+
+.edit__active .gallery-img__overlay-close.flaticon-001-cancel-3 {
+  content: "\f10f";
+  display: block;
+  position: relative;
+  right: -23rem;
+  top: -1rem;
+  background: white;
+}
+
+// .gallery-img:hover ~ .gallery__edit-btn {
+//   display: block;
+// }
 
 //Switching lists on click
 .gallery figure.home,

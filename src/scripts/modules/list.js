@@ -15,7 +15,6 @@ let storedList;
 let form;
 let closeFormBtn;
 let navbar;
-let magicGrid;
 
 function cacheDom() {
   buttons = Array.from(document.querySelector(".main-btns").children);
@@ -42,20 +41,12 @@ function bindEvents() {
   events.subscribe("listRetreived", (list) => {
     storedList = list;
     render();
-    // Only se magic grid if it does not exist yet
-    if (!magicGrid) {
-      magicGrid = new MagicGrid({
-        container: "#gallery", // Required. Can be a class, id, or an HTMLElement.
-        items: storedList.length, // Required for dynamic content.
-        animate: true, // Optional.
-      });
-      magicGrid.listen();
-    }
   });
 }
 
 function renderDestination(destination) {
   // create destination wrapper
+
   const elDestination = document.createElement("figure");
   elDestination.classList.add("gallery-img__container");
 
@@ -64,10 +55,19 @@ function renderDestination(destination) {
     ? elDestination.classList.add("home")
     : elDestination.classList.add("places");
 
-  // create img element
+  // img element
   const img = document.createElement("img");
   img.src = destination.photo;
   img.classList.add("gallery-img");
+
+  // img overlay
+  const imgOverlay = document.createElement("div");
+  imgOverlay.classList.add("gallery-img__overlay");
+
+  // img overlay close btn
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.classList.add("gallery-img__overlay-close");
 
   //create checkbox
   const checkbox = document.createElement("input");
@@ -80,17 +80,24 @@ function renderDestination(destination) {
 
   // create delete button
   const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("gallery-delete-btn");
-  deleteBtn.innerText = "Delete"; //RESTORE DELETE BTN
+  deleteBtn.classList.add("gallery__delete-btn");
+  deleteBtn.innerText = "Delete";
 
-  //create img dropdown menu
-  const dropdown = document.createElement("div");
-  // dropdown.type = "button";
-  dropdown.classList.add("gallery-dropdown-icon");
+  //create edit button
+  const editBtn = document.createElement("button");
+  editBtn.type = "button";
+  editBtn.classList.add("gallery__edit-btn");
+
+  //append overlay with delete and close btns to edit btn
+  editBtn.appendChild(imgOverlay);
+  imgOverlay.appendChild(deleteBtn);
+  closeBtn.classList.add("flaticon-001-cancel-3");
+  imgOverlay.appendChild(closeBtn);
 
   //create figure caption
   const figcaption = document.createElement("figcaption");
   figcaption.classList.add("caption__container");
+
   //set captions in a div
   const captionTxt = document.createElement("div");
   captionTxt.classList.add("caption__text");
@@ -117,10 +124,14 @@ function renderDestination(destination) {
     deleteItem(destination);
   });
 
+  // open edit menu
+  editBtn.addEventListener("click", () => {
+    elDestination.classList.toggle("edit__active");
+  });
+
   //Append to wrapper (figure el)
   elDestination.appendChild(img);
-  elDestination.appendChild(dropdown);
-  elDestination.appendChild(deleteBtn);
+  elDestination.appendChild(editBtn);
   elDestination.appendChild(figcaption);
 
   // Return the destination HTML
@@ -129,6 +140,7 @@ function renderDestination(destination) {
 
 function render() {
   gallery.textContent = "";
+
   // Create DOM elements for each destination
   storedList.forEach((destination) => {
     const elDestination = renderDestination(destination);
