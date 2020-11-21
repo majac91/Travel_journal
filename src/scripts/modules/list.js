@@ -89,7 +89,7 @@ function renderDestination(destination) {
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.classList.add("gallery-checkbox");
+  checkbox.classList.add("overlay__checkbox");
   //check all home list checkboxes
   if (destination.home) {
     checkbox.setAttribute("checked", "checked");
@@ -110,9 +110,9 @@ function renderDestination(destination) {
   elDestination.appendChild(imgOverlay);
   elDestination.appendChild(editBtn);
   elDestination.appendChild(figcaption);
-  imgOverlay.appendChild(closeBtn);
-  imgOverlay.appendChild(deleteBtn);
   imgOverlay.appendChild(checkbox);
+  imgOverlay.appendChild(deleteBtn);
+  imgOverlay.appendChild(closeBtn);
   figcaption.appendChild(captionTxt);
 
   //Events

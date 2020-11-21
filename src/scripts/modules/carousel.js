@@ -39,7 +39,7 @@ function bindEvents() {
   });
   nextBtn.addEventListener("click", () => {
     clearInterval(startInterval);
-    setInterval(moveToNextSlide, interval);
+    startInterval = setInterval(moveToNextSlide, interval);
   });
   prevBtn.addEventListener("click", moveToPreviousSlide);
 }
