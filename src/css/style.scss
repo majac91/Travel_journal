@@ -203,6 +203,13 @@ button {
 
 .gallery__edit-btn {
   display: none;
+  // display: block;
+  position: relative;
+  height: 4rem;
+  width: 4rem;
+  top: -10rem;
+  right: 1rem;
+  float: right;
   //edit icon
   &::before {
     content: "";
@@ -226,7 +233,17 @@ button {
   border-radius: 50%;
   outline: none;
   border: none;
-  animation: fadeIn 0.2s ease-in-out;
+  animation: fadeIn 0.5s forwards;
+}
+.gallery__edit-btn:hover {
+  display: block;
+  background-color: transparentize($color: white, $amount: 0.3);
+  border-radius: 50%;
+}
+
+.edit__active > .gallery-img:hover ~ .gallery__edit-btn,
+.edit__active > .gallery-img:hover ~ .gallery__edit-btn:hover {
+  display: none;
 }
 
 // Closed overlay
