@@ -1,46 +1,45 @@
-import { addDestination } from "../store.js";
+import { addPhoto } from "../store.js";
 let form;
 let radioBtns;
-let radioVisited;
-let radioBucketlist;
-let cityInput;
-let countryInput;
+let radioHome;
+let radioPlaces;
+let captionInput;
+let dateInput;
 let photoInput;
-let fileInput;
 let formState = {
-  city: null,
-  country: null,
+  caption: null,
+  date: null,
   photo: null,
 };
 
 function cacheDom() {
-  form = document.getElementById("add-city-form");
+  form = document.getElementById("add-photo-form");
   radioBtns = document.querySelectorAll("input[type=radio]");
-  radioVisited = document.getElementById("rd-visited");
-  radioBucketlist = document.getElementById("rd-bucketlist");
-  cityInput = document.getElementById("inputCity");
-  countryInput = document.getElementById("inputCountry");
+  radioHome = document.getElementById("rd-home");
+  radioPlaces = document.getElementById("rd-places");
+  captionInput = document.getElementById("inputCaption");
+  dateInput = document.getElementById("inputDate");
   photoInput = document.getElementById("inputImg");
 }
 
 function bindEvents() {
   form.addEventListener("submit", (event) => {
     formState.id = Math.round(Math.random() * 100000);
-    addDestination(formState);
+    addPhoto(formState);
     event.preventDefault();
     form.reset();
   });
-  radioVisited.addEventListener("click", isVisited);
-  radioBucketlist.addEventListener("click", isBucketlist);
-  cityInput.addEventListener("change", (event) => {
-    updateFormState("city", capitalize(event.target.value));
+  radioHome.addEventListener("click", isHome);
+  radioPlaces.addEventListener("click", isPlaces);
+  captionInput.addEventListener("change", (event) => {
+    updateFormState("caption", capitalize(event.target.value));
   });
-  countryInput.addEventListener("change", (event) => {
-    updateFormState("country", event.target.value);
+  dateInput.addEventListener("change", (event) => {
+    updateFormState("date", event.target.value);
   });
 }
 
-//update the formState values for city, country and photo on 'change' event
+//update the formState values for caption, date and photo on 'change' event
 function updateFormState(fieldName, value) {
   formState[fieldName] = value;
 }
@@ -49,18 +48,18 @@ function capitalize(word) {
   return word[0].toUpperCase() + word.substring(1).toLowerCase();
 }
 
-function isVisited() {
-  updateFormState("visited", true);
+function isHome() {
+  updateFormState("home", true);
 }
 
-function isBucketlist() {
-  updateFormState("visited", false);
+function isPlaces() {
+  updateFormState("home", false);
 }
 
 function initRadioBtn() {
   radioBtns.forEach((button) => {
-    isVisited();
-    isBucketlist();
+    isHome();
+    isPlaces();
   });
 }
 
@@ -72,4 +71,3 @@ function init() {
 
 const module = { init };
 export default module;
-// export { form };

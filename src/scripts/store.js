@@ -9,29 +9,30 @@ Parse.initialize(
 );
 Parse.serverURL = "https://parseapi.back4app.com/";
 
-const Destinations = Parse.Object.extend("Destinations");
-const destinations = new Destinations();
-const query = new Parse.Query(Destinations);
+const Gallery = Parse.Object.extend("Gallery");
+const gallery = new Gallery();
+const query = new Parse.Query(Gallery);
 
 //get a list from server and publish
 export async function retreiveList() {
-  query.equalTo("visited", true);
-  const visitedQuery = await query.find();
+  query.equalTo("home", true);
+  const homeQuery = await query.find();
 
-  query.equalTo("visited", false);
-  const bucketlistQuery = await query.find();
+  query.equalTo("home", false);
+  const placesQuery = await query.find();
 
-  const destList = [...visitedQuery, ...bucketlistQuery];
+  const destList = [...homeQuery, ...placesQuery];
 
   const retreivedList = [];
 
   for (let i = 0; i < destList.length; i++) {
     let object = destList[i];
-    let city = object.get("city");
-    let country = object.get("country");
-    let visited = object.get("visited");
+    let caption = object.get("caption");
+    let date = object.get("date");
+    let home = object.get("home");
     let photo = object.get("photo").url();
-    let listItem = { city, country, visited, photo };
+    let id = object.get("photoId");
+    let listItem = { caption, date, home, photo, id };
     retreivedList.push(listItem);
   }
 
@@ -41,8 +42,8 @@ export async function retreiveList() {
 
 retreiveList();
 
-//add new city
-export function addDestination(newItem) {
+//add new item
+export function addPhoto(newItem) {
   //create the file and upload to server
   const fileInput = document.getElementById("inputImg");
   const selectedFiles = [...fileInput.files];
@@ -50,13 +51,14 @@ export function addDestination(newItem) {
   const name = "photo.jpg";
   const parseFile = new Parse.File(name, file);
 
-  //save new city
+  //save item
   try {
-    destinations.save({
-      city: newItem.city,
-      country: newItem.country,
-      visited: newItem.visited,
+    gallery.save({
+      caption: newItem.caption,
+      date: newItem.date,
+      home: newItem.home,
       photo: parseFile,
+      photoId: newItem.id,
     });
     console.log("The object was added successfully.");
     retreiveList();
@@ -66,17 +68,18 @@ export function addDestination(newItem) {
 }
 
 //check/uncheck an item from a list
-export async function toggleButtonVisited(item) {
-  const visited = item.visited;
-  item.visited = !visited;
+export async function toggleButtonHome(item) {
+  const home = item.home;
+  item.home = !home;
 
-  const query = new Parse.Query(Destinations);
-  query.equalTo("city", item.city);
+  const query = new Parse.Query(Gallery);
+  query.equalTo("photoId", item.id);
   const updateQuery = await query.find();
 
   try {
-    const object = await updateQuery[0].set("visited", item.visited).save();
+    const object = await updateQuery[0].set("home", item.home).save();
     console.log("The object was updated successfully.");
+    setTimeout(retreiveList, 1000);
   } catch (error) {
     console.log(error);
   }
@@ -84,12 +87,12 @@ export async function toggleButtonVisited(item) {
 
 //delete an item
 export async function deleteItem(item) {
-  const query = new Parse.Query(Destinations);
-  query.equalTo("city", item.city);
+  const query = new Parse.Query(Gallery);
+  query.equalTo("photoId", item.id);
   const deleteQuery = await query.find();
 
   if (
-    mscConfirm("Are you sure?", async function () {
+    mscConfirm("Delete photo?", async function () {
       try {
         const object = await deleteQuery[0].destroy();
         console.log("The object was deleted successfully.");

@@ -3,144 +3,151 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fonts -->
     <link
-      href="//db.onlinewebfonts.com/c/c862d8098ce50a7dc042ebbb9b94bbc8?family=TwCenW01-Medium"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;1,100&display=swap"
       rel="stylesheet"
-      type="text/css"
     />
-    <link rel="stylesheet" href="./css/style.scss" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;1,100&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icons -->
     <link
       rel="stylesheet"
       media="screen"
-      href="https://fontlibrary.org/face/germano"
+      href="./icons/font/flaticon.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="./icons/font/flaticon.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
       integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./css/style.scss" />
     <script
       type="text/javascript"
       src="https://npmcdn.com/parse/dist/parse.min.js"
     ></script>
-    <!-- <link rel="stylesheet" href="./css/popups.css" /> -->
+    <!-- <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script> -->
     <title>places-been</title>
   </head>
   <body>
     <!-- N A V B A R  -->
     <nav class="navbar">
-      <div class="container container--space-between">
-        <a href="#" class="navbar-logo">
-          <h1 class="navbar__title">places been</h1>
-          <h2 class="navbar__subtitle">a travel journal</h2>
-        </a>
-        <ul class="navbar__links">
-          <li class="navbar__link">
-            <a href="#">About</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#main-buttons">My cities</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-      <!-- <ul class="navbar--social container--social">
-        <li class="social__links">
-          <a href="#">Ig</a>
+      <ul class="navbar__links">
+        <li class="navbar__list">
+          <a class="navbar__link" href="#">Hey,</a>
         </li>
-        <li class="social__links">
-          <a href="#">Fb</a>
+        <li class="navbar__list">
+          <a class="navbar__link" href="">Stories,</a>
         </li>
-      </ul> -->
+        <li class="navbar__list">
+          <a class="navbar__link" href="#">About</a>
+        </li>
+      </ul>
     </nav>
-    <!-- H E A D E R -->
-    <header class="header container--main">
-      <img class="header__img" src="./img/header2.jpg" alt="" />
+
+    <!-- H E A D E R  -->
+    <header class="header">
+      <!-- slideshow -->
+      <section class="container--slideshow">
+        <div class="slides">
+          <div class="slide slide-1">
+            <img src="./img/photo1.jpg" alt="" />
+          </div>
+          <div class="slide slide-2">
+            <img src="./img/photo8.jpg" alt="" />
+          </div>
+          <div class="slide slide-3">
+            <img src="./img/photo25.jpg" alt="" />
+          </div>
+          <div class="slide slide-4">
+            <img src="./img/photo0.jpg" alt="" />
+          </div>
+        </div>
+        <div class="slide-controls">
+          <button class="prev-btn" aria-label="previous photo"></button>
+          <button class="next-btn" aria-label="next photo"></button>
+        </div>
+      </section>
+      <!-- headline -->
+      <section class="heading container--heading">
+        <h1 class="heading--visually-hidden">
+          Maja Cvetkovic - Photographic Journal
+        </h1>
+        <p class="heading__subtitle">Hey, welcome and take a look</p>
+        <p class="heading__title">
+          This is a photographic journal of
+          <span class="heading__name">Maja Cvetkovic</span>, an amateur
+          photographer based in Nis, Serbia.
+        </p>
+        <label class="scroll__label">Scroll down</label>
+        <button class="scroll__btn">
+          <a href="#main-btns"
+            ><img
+              class="scroll__icon"
+              src="./icons/png/next.png"
+              alt="scroll-down-icon"
+            />
+          </a>
+        </button>
+      </section>
     </header>
-    <!-- F O R M  -->
-    <form
-      id="add-city-form"
-      class="form add-city-form form-state--closed container--main"
-    >
-      <label class="form__label form__label--city" for="inputCity" id="cityName"
-        >City</label
-      >
+
+    <!--M A I N -->
+    <!-- toggle view buttons -->
+    <div id="main-btns" class="main-btns">
+      <button class="btn btn__all" type="button">All</button>
+      <button class="btn btn__home" type="button">Home</button>
+      <button class="btn btn__places" type="button">Places</button>
+      <button class="btn btn__add flaticon-016-add" type="button"></button>
+    </div>
+
+    <!--add new photo form -->
+    <form id="add-photo-form" class="form form-state--closed">
+      <!-- caption -->
+      <label for="inputCaption" class="form__label">Caption</label>
       <input
         type="text"
         name="text"
-        id="inputCity"
-        class="form__input form__input--city"
+        id="inputCaption"
+        required
+        class="form__input"
       />
-      <label
-        class="form__label form__label--country"
-        for="inputCountry"
-        id="countryName"
-        >Country</label
-      >
+      <!-- date -->
+      <label for="inputDate" class="form__label">Date</label>
       <input
-        type="text"
+        type="date"
         name="text"
-        id="inputCountry"
-        class="form__input form__input--country"
+        id="inputDate"
+        required
+        class="form__input"
       />
-      <!-- add photo field-->
-      <label class="form__label form__label--url" for="inputImg" id="url"
-        >Photo</label
-      >
-      <input type="file" id="inputImg" class="form__input form__input--file" />
-      <!-- <input type="url" id="inputImg" class="form__input form__input--url" /> -->
+      <!-- photo-->
+      <label class="form__label" for="inputImg">Photo</label>
+      <input type="file" id="inputImg" required class="form__input" />
       <!-- radio buttons-->
       <div class="radio-buttons">
-        <input
-          id="rd-visited"
-          type="radio"
-          name="btn"
-          value="Visited"
-          label="Visited"
-        />
-        <label for="rd-visited" class="form__label--visited">Visited</label>
-        <input
-          id="rd-bucketlist"
-          type="radio"
-          name="btn"
-          value="Bucketlist"
-          label="Bucketlist"
-        />
-        <label for="rd-bucketlist" class="form__label--bucketlist"
-          >Bucketlist</label
-        >
+        <input id="rd-home" name="btn" type="radio" value="Home" />
+        <label for="rd-home" class="radio-label">Home</label>
+        <input id="rd-places" name="btn" type="radio" value="Places" />
+        <label for="rd-places" class="radio-label">Places</label>
       </div>
       <!-- Upload button -->
-      <button type="submit" id="upload" class="form-btn__submit">Upload</button>
+      <button type="submit" id="upload" class="form__submit">Upload</button>
       <!-- Close button -->
       <button
         type="button"
         id="close"
-        class="form-btn__close flaticon-001-cancel-3"
+        class="form__close flaticon-001-cancel-3"
       ></button>
     </form>
 
-    <!--M A I N - buttons-->
-    <div id="main-buttons" class="buttons container--main">
-      <span class="button buttons__view">My places:</span>
-      <button class="button button__visited" type="button">Visited</button>
-      <button class="button button__buckelist" type="button">Bucketlist</button>
-      <button class="button button__all" type="button">All</button>
-      <button
-        class="button button__add flaticon-016-add"
-        type="button"
-      ></button>
-    </div>
-
-    <!--M A I N - gallery-->
-    <main class="gallery container--main" id="gallery"></main>
+    <!-- gallery -->
+    <main class="gallery container" id="gallery"></main>
 
     <script src="main.js"></script>
-    <!-- <script src="./scripts/modules/popups.js"></script> -->
   </body>
 </html>

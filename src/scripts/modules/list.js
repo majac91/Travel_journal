@@ -1,12 +1,12 @@
-import { deleteItem, toggleButtonVisited } from "../store.js";
+import { deleteItem, toggleButtonHome } from "../store.js";
 import events from "./pubsub.js";
 
 // Create gallery elements and render them
 
 //Variables
 let buttons;
-let visited;
-let bucketlist;
+let home;
+let places;
 let add;
 let all;
 let gallery;
@@ -17,21 +17,21 @@ let closeFormBtn;
 let navbar;
 
 function cacheDom() {
-  buttons = Array.from(document.querySelector(".buttons").children);
-  visited = buttons[1];
-  bucketlist = buttons[2];
-  all = buttons[3];
-  add = buttons[4];
+  buttons = Array.from(document.querySelector(".main-btns").children);
+  all = buttons[0];
+  home = buttons[1];
+  places = buttons[2];
+  add = buttons[3];
   navbar = document.querySelector(".navbar");
   gallery = document.querySelector(".gallery");
   activeBtn = null;
-  form = document.getElementById("add-city-form");
+  form = document.getElementById("add-photo-form");
   closeFormBtn = document.getElementById("close");
 }
 
 function bindEvents() {
-  visited.addEventListener("click", addVisited);
-  bucketlist.addEventListener("click", addBucketlist);
+  home.addEventListener("click", addClassHome);
+  places.addEventListener("click", addClassPlaces);
   all.addEventListener("click", showAll);
   add.addEventListener("click", openForm);
   closeFormBtn.addEventListener("click", closeForm);
@@ -40,68 +40,86 @@ function bindEvents() {
   window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
+    console.log(storedList);
     render();
   });
 }
 
 function renderDestination(destination) {
-  // create destination wrapper
+  // create figure wrapper
   const elDestination = document.createElement("figure");
-  elDestination.classList.add("gallery-img--container");
+  elDestination.classList.add("gallery-img__container");
 
-  // add the correct class to elDestination wrapper
-  destination.visited === true
-    ? elDestination.classList.add("visited")
-    : elDestination.classList.add("bucketlist");
+  // add correct class to wrapper
+  destination.home === true
+    ? elDestination.classList.add("home")
+    : elDestination.classList.add("places");
 
-  // create img element
+  // img element
   const img = document.createElement("img");
   img.src = destination.photo;
   img.classList.add("gallery-img");
 
+  //figure caption
+  const figcaption = document.createElement("figcaption");
+  figcaption.classList.add("caption__container");
+
+  //captions div
+  const captionTxt = document.createElement("div");
+  captionTxt.classList.add("caption__text");
+
+  captionTxt.insertAdjacentHTML(
+    "beforeend",
+    `<h2 class='img__caption'>${destination.caption}</h2>`
+  );
+  captionTxt.insertAdjacentHTML(
+    "beforeend",
+    `<h3 class='img__date'>${destination.date}</h3>`
+  );
+
+  // img overlay
+  const imgOverlay = document.createElement("div");
+  imgOverlay.classList.add("gallery-img__overlay");
+
+  // img overlay close btn
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.classList.add("overlay__close");
+  closeBtn.classList.add("flaticon-001-cancel-3");
+
   //create checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.classList.add("gallery-checkbox");
-
-  //check all visited list checkboxes
-  if (destination.visited) {
+  checkbox.classList.add("overlay__checkbox");
+  //check all home list checkboxes
+  if (destination.home) {
     checkbox.setAttribute("checked", "checked");
   }
 
-  // create delete button
+  // delete button
   const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("gallery-delete-btn");
-  deleteBtn.innerText = "Delete"; //RESTORE DELETE BTN
+  deleteBtn.classList.add("overlay__delete");
+  deleteBtn.classList.add("flaticon-020-disable");
 
-  //create img dropdown menu
-  const dropdown = document.createElement("div");
-  // dropdown.type = "button";
-  dropdown.classList.add("gallery-dropdown-icon");
+  //edit button
+  const editBtn = document.createElement("button");
+  editBtn.type = "button";
+  editBtn.classList.add("gallery__edit-btn");
 
-  //create figure caption
-  const figcaption = document.createElement("figcaption");
-  figcaption.classList.add("caption");
-  //set captions in a div
-  const captionTxt = document.createElement("div");
-  captionTxt.classList.add("caption-text");
-  figcaption.appendChild(checkbox);
+  //append elements
+  elDestination.appendChild(img);
+  elDestination.appendChild(imgOverlay);
+  elDestination.appendChild(editBtn);
+  elDestination.appendChild(figcaption);
+  imgOverlay.appendChild(checkbox);
+  imgOverlay.appendChild(deleteBtn);
+  imgOverlay.appendChild(closeBtn);
   figcaption.appendChild(captionTxt);
 
-  captionTxt.insertAdjacentHTML(
-    "beforeend",
-    `<h2 class='caption__city'>${destination.city}</h2>`
-  );
-  captionTxt.insertAdjacentHTML(
-    "beforeend",
-    `<h3 class='caption__country'>${destination.country}</h3>`
-  );
-
   //Events
-  // move checked items to 'visited' list
+  // move checked items to 'home' list
   checkbox.addEventListener("click", () => {
-    toggleButtonVisited(destination);
-    setTimeout(render, 1000);
+    toggleButtonHome(destination);
   });
 
   // delete an item
@@ -109,11 +127,16 @@ function renderDestination(destination) {
     deleteItem(destination);
   });
 
-  //Append to wrapper (figure el)
-  elDestination.appendChild(img);
-  elDestination.appendChild(dropdown);
-  elDestination.appendChild(deleteBtn);
-  elDestination.appendChild(figcaption);
+  // open edit menu
+  editBtn.addEventListener("click", () => {
+    elDestination.classList.toggle("edit__active");
+    editBtn.style.opacity = "0";
+  });
+
+  closeBtn.addEventListener("click", () => {
+    elDestination.classList.toggle("edit__active");
+    editBtn.style.opacity = "1";
+  });
 
   // Return the destination HTML
   return elDestination;
@@ -121,6 +144,7 @@ function renderDestination(destination) {
 
 function render() {
   gallery.textContent = "";
+
   // Create DOM elements for each destination
   storedList.forEach((destination) => {
     const elDestination = renderDestination(destination);
@@ -144,23 +168,23 @@ function setActive() {
       activeBtn = current;
     });
   });
-  //set visited as the default active button on page load
-  document.querySelector(".button__visited").click();
+  //set home as the default active button on page load
+  document.querySelector(".btn__all").click();
 }
 
-function addVisited() {
-  gallery.classList.add("visited");
-  gallery.classList.remove("bucketlist");
+function addClassHome() {
+  gallery.classList.add("home");
+  gallery.classList.remove("places");
 }
 
-function addBucketlist() {
-  gallery.classList.add("bucketlist");
-  gallery.classList.remove("visited");
+function addClassPlaces() {
+  gallery.classList.add("places");
+  gallery.classList.remove("home");
 }
 
 function showAll() {
-  gallery.classList.remove("visited");
-  gallery.classList.remove("bucketlist");
+  gallery.classList.remove("home");
+  gallery.classList.remove("places");
 }
 
 function openForm() {
