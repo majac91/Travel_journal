@@ -40,6 +40,7 @@ function bindEvents() {
   window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
+    console.log(storedList);
     render();
   });
 }
@@ -69,11 +70,11 @@ function renderDestination(destination) {
 
   captionTxt.insertAdjacentHTML(
     "beforeend",
-    `<h2 class='img__caption'>${destination.city}</h2>`
+    `<h2 class='img__caption'>${destination.caption}</h2>`
   );
   captionTxt.insertAdjacentHTML(
     "beforeend",
-    `<h3 class='img__date'>${destination.country}</h3>`
+    `<h3 class='img__date'>${destination.date}</h3>`
   );
 
   // img overlay

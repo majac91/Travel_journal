@@ -16,12 +16,12 @@ const query = new Parse.Query(Gallery);
 //get a list from server and publish
 export async function retreiveList() {
   query.equalTo("home", true);
-  const visitedQuery = await query.find();
+  const homeQuery = await query.find();
 
   query.equalTo("home", false);
-  const bucketlistQuery = await query.find();
+  const placesQuery = await query.find();
 
-  const destList = [...visitedQuery, ...bucketlistQuery];
+  const destList = [...homeQuery, ...placesQuery];
 
   const retreivedList = [];
 
@@ -42,7 +42,7 @@ export async function retreiveList() {
 
 retreiveList();
 
-//add new photo
+//add new item
 export function addPhoto(newItem) {
   //create the file and upload to server
   const fileInput = document.getElementById("inputImg");
@@ -51,7 +51,7 @@ export function addPhoto(newItem) {
   const name = "photo.jpg";
   const parseFile = new Parse.File(name, file);
 
-  //save photo
+  //save item
   try {
     gallery.save({
       caption: newItem.caption,
@@ -92,7 +92,7 @@ export async function deleteItem(item) {
   const deleteQuery = await query.find();
 
   if (
-    mscConfirm("Are you sure?", async function () {
+    mscConfirm("Delete photo?", async function () {
       try {
         const object = await deleteQuery[0].destroy();
         console.log("The object was deleted successfully.");

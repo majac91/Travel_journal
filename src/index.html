@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- fonts -->
     <link
-      rel="stylesheet"
-      media="screen"
-      href="https://fontlibrary.org/face/germano"
-      type="text/css"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;1,100&display=swap"
       rel="stylesheet"
     />
@@ -114,13 +107,27 @@
 
     <!--add new photo form -->
     <form id="add-photo-form" class="form form-state--closed">
+      <!-- caption -->
       <label for="inputCaption" class="form__label">Caption</label>
-      <input type="text" name="text" id="inputCaption" class="form__input" />
+      <input
+        type="text"
+        name="text"
+        id="inputCaption"
+        required
+        class="form__input"
+      />
+      <!-- date -->
       <label for="inputDate" class="form__label">Date</label>
-      <input type="text" name="text" id="inputDate" class="form__input" />
-      <!-- add photo field-->
+      <input
+        type="date"
+        name="text"
+        id="inputDate"
+        required
+        class="form__input"
+      />
+      <!-- photo-->
       <label class="form__label" for="inputImg">Photo</label>
-      <input type="file" id="inputImg" class="form__input" />
+      <input type="file" id="inputImg" required class="form__input" />
       <!-- radio buttons-->
       <div class="radio-buttons">
         <input id="rd-home" name="btn" type="radio" value="Home" />

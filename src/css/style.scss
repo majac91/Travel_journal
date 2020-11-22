@@ -121,6 +121,9 @@ button {
 .active-button {
   border-bottom: 1px solid black;
 }
+.btn__add.active-button {
+  border-bottom: none;
+}
 
 //Closed form
 .form-state--closed {
@@ -346,8 +349,8 @@ button {
     margin-left: 5px;
   }
   .img__caption {
-    font-weight: 300;
-    font-size: 2rem;
+    font-family: "bimboballpoint";
+    font-size: 1.8rem;
     text-transform: capitalize;
     letter-spacing: 1px;
   }

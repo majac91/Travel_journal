@@ -7,7 +7,6 @@ let index;
 let slideWidth;
 let firstClone;
 let lastClone;
-let startInterval;
 
 function cacheDom() {
   slideContainer = document.querySelector(".slides");
@@ -19,7 +18,6 @@ function cacheDom() {
   slideWidth = slides[index].clientWidth || window.onresize;
   firstClone = slides[0].cloneNode(true);
   lastClone = slides[slides.length - 1].cloneNode(true);
-  startInterval = setInterval(moveToNextSlide, interval);
 }
 
 function bindEvents() {
@@ -37,11 +35,9 @@ function bindEvents() {
       slideContainer.style.transform = `translateX(${-slideWidth * index}px)`;
     }
   });
-  nextBtn.addEventListener("click", () => {
-    clearInterval(startInterval);
-    startInterval = setInterval(moveToNextSlide, interval);
-  });
+  nextBtn.addEventListener("click", moveToNextSlide);
   prevBtn.addEventListener("click", moveToPreviousSlide);
+  // document.addEventListener("resize", resizeSlide);
 }
 
 function render() {
@@ -54,6 +50,12 @@ window.onresize = function () {
   slideWidth = slides[index].clientWidth;
   return slideWidth;
 };
+
+// function resizeSlide() {
+//   slideWidth = slides[index].clientWidth;
+//   console.log(slideWidth);
+//   return slideWidth;
+// }
 
 //includes the first and the last clone
 const getSlides = () => document.querySelectorAll(".slide");
@@ -73,11 +75,16 @@ function moveToPreviousSlide() {
   slideContainer.style.transform = `translateX(${-slideWidth * index}px)`;
 }
 
+function startSlide() {
+  setInterval(() => {
+    moveToNextSlide();
+  }, interval);
+}
+
 function init() {
   cacheDom();
   bindEvents();
   render();
+  startSlide();
 }
 init();
-
-export default module;
