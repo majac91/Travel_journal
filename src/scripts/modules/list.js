@@ -40,7 +40,6 @@ function bindEvents() {
   window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
-    console.log(storedList);
     render();
   });
 }

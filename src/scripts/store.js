@@ -43,7 +43,7 @@ export async function retreiveList() {
 retreiveList();
 
 //add new item
-export function addPhoto(newItem) {
+export async function addPhoto(newItem) {
   //create the file and upload to server
   const fileInput = document.getElementById("inputImg");
   const selectedFiles = [...fileInput.files];
@@ -53,7 +53,7 @@ export function addPhoto(newItem) {
 
   //save item
   try {
-    gallery.save({
+    await gallery.save({
       caption: newItem.caption,
       date: newItem.date,
       home: newItem.home,
