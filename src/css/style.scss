@@ -10,13 +10,12 @@
   src: url("//db.onlinewebfonts.com/t/c862d8098ce50a7dc042ebbb9b94bbc8.eot?#iefix")
       format("embedded-opentype"),
     url("//db.onlinewebfonts.com/t/c862d8098ce50a7dc042ebbb9b94bbc8.woff2")
-      format("woff2"),
-    url("//db.onlinewebfonts.com/t/c862d8098ce50a7dc042ebbb9b94bbc8.woff")
-      format("woff"),
-    url("//db.onlinewebfonts.com/t/c862d8098ce50a7dc042ebbb9b94bbc8.ttf")
-      format("truetype"),
-    url("//db.onlinewebfonts.com/t/c862d8098ce50a7dc042ebbb9b94bbc8.svg#TwCenW01-Medium")
-      format("svg");
+      format("woff2");
+}
+
+@font-face {
+  font-family: "bimboballpoint";
+  src: url(../fonts/bimbo-ballpoint.ttf) format("truetype");
 }
 
 //Variables
@@ -46,22 +45,13 @@ html {
   margin: auto;
 }
 
-// .container--social {
-//   position: relative;
-//   left: 5vh;
-//   height: 95vh;
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: column;
-// }
-
 li {
   list-style: none;
 }
 
 a {
   text-decoration: none;
-  color: $text;
+  color: white;
 }
 
 button {
@@ -74,28 +64,26 @@ button {
 .navbar {
   height: 7rem;
   width: 100%;
-  background: $grey;
-  font-size: 1.5rem;
+  background: transparent;
   letter-spacing: 2px;
+  font-size: 2rem;
   line-height: 1.2;
   transition: all 0.4s ease;
-  font-family: "GermanoRegular";
+  font-family: "TwCenW01-Medium";
   font-weight: normal;
   font-style: normal;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
   .navbar-logo {
     display: inline-block;
+    font-family: "bimboballpoint";
   }
 }
 
 .navbar__links {
-  margin: 2rem;
-
+  margin: 4rem;
   display: flex;
-  font-size: 1.8rem;
   .navbar__link {
     margin-left: 4rem;
   }
@@ -110,24 +98,30 @@ button {
   }
 }
 
-//shrink navbar on scroll
-.navbar--shrink {
-  font-size: 1.2rem;
-  height: 8rem;
-}
-
 //Header
 .header {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 15vh;
   .header__img {
-    height: 90vh;
-    object-fit: contain;
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
     min-width: 50rem;
     display: block;
     margin: auto;
     .header__img:hover {
       opacity: 100;
     }
+  }
+  .header__title {
+    position: absolute;
+    font-size: 5rem;
+    color: white;
+    top: 50vh;
+    // left: 45vw;
+    margin: auto 0;
+    font-family: "bimboballpoint";
   }
 }
 
@@ -250,22 +244,30 @@ button {
   }
 }
 
-.gallery-dropdown-icon {
+.gallery-delete-btn {
   position: relative;
-  top: -40px;
-  right: 20px;
+  top: -28rem;
+  right: 2rem;
   float: right;
+  opacity: 0;
+
+  //delete icon
+  &.flaticon-001-cancel-3 {
+    background: transparentize($color: white, $amount: 0.5);
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    &::before {
+      margin: 0;
+    }
+  }
 }
 
-.gallery-dropdown-icon::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f141";
-  font-size: 2.5rem;
-  color: black;
-  opacity: 0;
+.gallery-img:hover ~ .gallery-delete-btn {
+  opacity: 1;
 }
-.gallery-img:hover ~ .gallery-dropdown-icon::before {
+
+.gallery-delete-btn:hover {
   opacity: 1;
 }
 
@@ -299,12 +301,12 @@ button {
   .caption-text {
     margin-left: 5px;
   }
-  // .caption__city {
-  //   font-weight: 300;
-  //   font-size: 2rem;
-  //   text-transform: capitalize;
-  //   letter-spacing: 1px;
-  // }
+  .caption__city {
+    font-weight: 300;
+    font-size: 2rem;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+  }
   .caption__country {
     font-weight: 300;
     font-size: 1.2rem;

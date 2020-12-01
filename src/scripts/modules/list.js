@@ -36,8 +36,8 @@ function bindEvents() {
   add.addEventListener("click", openForm);
   closeFormBtn.addEventListener("click", closeForm);
   document.addEventListener("DOMContentLoaded", setActive);
-  document.addEventListener("scroll", shrinkNav);
-  window.addEventListener("scroll", restoreNav);
+  // document.addEventListener("scroll", shrinkNav);
+  // window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
     render();
@@ -72,12 +72,7 @@ function renderDestination(destination) {
   // create delete button
   const deleteBtn = document.createElement("button");
   deleteBtn.classList.add("gallery-delete-btn");
-  deleteBtn.innerText = "Delete"; //RESTORE DELETE BTN
-
-  //create img dropdown menu
-  const dropdown = document.createElement("div");
-  // dropdown.type = "button";
-  dropdown.classList.add("gallery-dropdown-icon");
+  deleteBtn.classList.add("flaticon-001-cancel-3");
 
   //create figure caption
   const figcaption = document.createElement("figcaption");
@@ -111,7 +106,6 @@ function renderDestination(destination) {
 
   //Append to wrapper (figure el)
   elDestination.appendChild(img);
-  elDestination.appendChild(dropdown);
   elDestination.appendChild(deleteBtn);
   elDestination.appendChild(figcaption);
 
@@ -172,17 +166,17 @@ function closeForm() {
 }
 
 //shrink header on scroll
-function shrinkNav() {
-  navbar.classList.add("navbar--shrink");
-}
+// function shrinkNav() {
+//   navbar.classList.add("navbar--shrink");
+// }
 
 // restore nav size on scroll up
-function restoreNav() {
-  const scrollPos = 0;
-  if (document.body.getBoundingClientRect().top === scrollPos) {
-    document.querySelector(".navbar").classList.remove("navbar--shrink");
-  }
-}
+// function restoreNav() {
+//   const scrollPos = 0;
+//   if (document.body.getBoundingClientRect().top === scrollPos) {
+//     document.querySelector(".navbar").classList.remove("navbar--shrink");
+//   }
+// }
 
 function init() {
   cacheDom();

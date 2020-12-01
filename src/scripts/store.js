@@ -42,7 +42,7 @@ export async function retreiveList() {
 retreiveList();
 
 //add new city
-export function addDestination(newItem) {
+export async function addDestination(newItem) {
   //create the file and upload to server
   const fileInput = document.getElementById("inputImg");
   const selectedFiles = [...fileInput.files];
@@ -52,7 +52,7 @@ export function addDestination(newItem) {
 
   //save new city
   try {
-    destinations.save({
+    await destinations.save({
       city: newItem.city,
       country: newItem.country,
       visited: newItem.visited,
@@ -89,7 +89,7 @@ export async function deleteItem(item) {
   const deleteQuery = await query.find();
 
   if (
-    mscConfirm("Are you sure?", async function () {
+    mscConfirm("Delete destination?", async function () {
       try {
         const object = await deleteQuery[0].destroy();
         console.log("The object was deleted successfully.");
