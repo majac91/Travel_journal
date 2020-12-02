@@ -9,19 +9,7 @@
       type="text/css"
     />
     <link rel="stylesheet" href="./css/style.scss" />
-    <link
-      rel="stylesheet"
-      media="screen"
-      href="https://fontlibrary.org/face/germano"
-      type="text/css"
-    />
     <link rel="stylesheet" href="./icons/font/flaticon.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      crossorigin="anonymous"
-    />
     <script
       type="text/javascript"
       src="https://npmcdn.com/parse/dist/parse.min.js"
@@ -32,19 +20,19 @@
     <!-- N A V B A R  -->
     <nav class="navbar">
       <div class="container container--space-between">
-        <a href="#" class="navbar-logo">
+        <a href="#" class="navbar__logo">
           <h1 class="navbar__title">places been</h1>
           <h2 class="navbar__subtitle">a travel journal</h2>
         </a>
         <ul class="navbar__links">
-          <li class="navbar__link">
-            <a href="#">About</a>
+          <li class="navbar__item">
+            <a class="navbar__link" href="#">About</a>
+          </li class="navbar__item">
+          <li>
+            <a class="navbar__link" href="#display__buttons">My places</a>
           </li>
-          <li class="navbar__link">
-            <a href="#main-buttons">My cities</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#">Contact</a>
+          <li class="navbar__item">
+            <a class="navbar__link" href="#">Contact</a>
           </li>
         </ul>
       </div>
@@ -52,41 +40,41 @@
     <!-- H E A D E R -->
     <header class="header">
       <img class="header__img" src="./img/sienna.jpg" alt="" />
-      <!-- <h1 class="header__title">Whenever I may roam</h1> -->
     </header>
     <!-- F O R M  -->
     <form
       id="add-city-form"
-      class="form add-city-form form-state--closed container--main"
+      class="add-city-form add-city-form--closed container"
     >
-      <label class="form__label form__label--city" for="inputCity" id="cityName"
+      <label class="form__label" for="inputCity" 
         >City</label
       >
       <input
         type="text"
         name="text"
         id="inputCity"
-        class="form__input form__input--city"
+        class="form__input"
       />
       <label
-        class="form__label form__label--country"
+        class="form__label"
         for="inputCountry"
-        id="countryName"
         >Country</label
       >
       <input
         type="text"
         name="text"
         id="inputCountry"
-        class="form__input form__input--country"
+        class="form__input"
       />
       <!-- add photo field-->
-      <label class="form__label form__label--url" for="inputImg" id="url"
-        >Photo</label
-      >
-      <input type="file" id="inputImg" class="form__input form__input--file" />
+      <label
+      class="form__label"
+      for="inputImg"
+      >Photo</label
+    >
+      <input type="file" id="inputImg" class="form__input form__file" />
       <!-- radio buttons-->
-      <div class="radio-buttons">
+      <div class="form__radio-buttons">
         <input
           id="rd-visited"
           type="radio"
@@ -94,7 +82,7 @@
           value="Visited"
           label="Visited"
         />
-        <label for="rd-visited" class="form__label--visited">Visited</label>
+        <label for="rd-visited" >Visited</label>
         <input
           id="rd-bucketlist"
           type="radio"
@@ -102,34 +90,34 @@
           value="Bucketlist"
           label="Bucketlist"
         />
-        <label for="rd-bucketlist" class="form__label--bucketlist"
+        <label for="rd-bucketlist"
           >Bucketlist</label
         >
       </div>
       <!-- Upload button -->
-      <button type="submit" id="upload" class="form-btn__submit">Upload</button>
+      <button type="submit" id="upload" class="form__submit">Upload</button>
       <!-- Close button -->
       <button
         type="button"
         id="close"
-        class="form-btn__close flaticon-001-cancel-3"
+        class="form__close flaticon-001-cancel-3"
       ></button>
     </form>
 
     <!--M A I N - buttons-->
-    <div id="main-buttons" class="buttons container--main">
-      <span class="button buttons__view">My places:</span>
-      <button class="button button__visited" type="button">Visited</button>
-      <button class="button button__buckelist" type="button">Bucketlist</button>
-      <button class="button button__all" type="button">All</button>
+    <div id="display__buttons" class="display__buttons container">
+      <span class="display__button button__view">My places:</span>
+      <button class="display__button button__visited" type="button">Visited</button>
+      <button class="display__button button__buckelist" type="button">Bucketlist</button>
+      <button class="display__button button__all" type="button">All</button>
       <button
-        class="button button__add flaticon-016-add"
+        class="display__button button__add flaticon-016-add"
         type="button"
       ></button>
     </div>
 
     <!--M A I N - gallery-->
-    <main class="gallery container--main" id="gallery"></main>
+    <main class="gallery container" id="gallery"></main>
 
     <script src="main.js"></script>
   </body>

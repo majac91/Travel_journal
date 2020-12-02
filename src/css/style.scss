@@ -21,28 +21,14 @@
 //Variables
 $grey: #f1f1f1;
 $text: black;
+$cursive: "bimboballpoint", sans-serif;
+$main-font: "TwCenW01-Medium", sans-serif;
 
 //Basic styles
 html {
   background: $grey;
   font-size: 10px;
-  font-family: "TwCenW01-Medium";
-}
-
-.container {
-  width: 95vw;
-  margin: auto;
-}
-
-.container--space-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.container--main {
-  width: 90vw;
-  margin: auto;
+  font-family: $main-font;
 }
 
 li {
@@ -51,13 +37,23 @@ li {
 
 a {
   text-decoration: none;
-  color: white;
 }
 
 button {
   outline: none;
   border: none;
   cursor: pointer;
+}
+
+.container {
+  width: 90vw;
+  margin: auto;
+}
+
+.container--space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 //Navbar
@@ -69,32 +65,22 @@ button {
   font-size: 2rem;
   line-height: 1.2;
   transition: all 0.4s ease;
-  font-family: "TwCenW01-Medium";
   font-weight: normal;
   font-style: normal;
   position: absolute;
   top: 0;
   left: 0;
-  .navbar-logo {
-    display: inline-block;
-    font-family: "bimboballpoint";
+  &__logo {
+    font-family: $cursive;
+    color: white;
   }
-}
-
-.navbar__links {
-  margin: 4rem;
-  display: flex;
-  .navbar__link {
+  &__links {
+    margin: 4rem;
+    display: flex;
+  }
+  &__link {
     margin-left: 4rem;
-  }
-}
-
-.navbar--social {
-  float: left;
-  font-size: 1.8rem;
-  .social__links {
-    transform: rotate(-90deg);
-    margin-bottom: 3rem;
+    color: white;
   }
 }
 
@@ -103,118 +89,96 @@ button {
   display: flex;
   flex-direction: column;
   margin-bottom: 15vh;
-  .header__img {
+  &__img {
     height: 100vh;
     width: 100vw;
     object-fit: cover;
     min-width: 50rem;
     display: block;
     margin: auto;
-    .header__img:hover {
+    &:hover {
       opacity: 100;
     }
   }
-  .header__title {
-    position: absolute;
-    font-size: 5rem;
-    color: white;
-    top: 50vh;
-    // left: 45vw;
-    margin: auto 0;
-    font-family: "bimboballpoint";
-  }
 }
 
-.buttons {
+//Gallery display buttons (visited, bucketlist, all)
+.display__buttons {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 3rem;
   height: 5rem;
   font-size: 1.8rem;
-
-  .button {
+  .display__button {
     display: inline-block;
     margin: 2rem;
-    font-family: "TwCenW01-Medium";
+    font-family: $main-font;
     font-size: 1em;
     font-weight: 100;
     text-transform: uppercase;
     opacity: 1;
-  }
-  .flaticon-016-add:before {
-    content: "\f10f";
-  }
-  .button:hover {
-    border-bottom: 1px solid black;
-  }
-  .buttons__view:hover,
-  .button__add:hover {
-    border-bottom: none;
+    //Clicked button
+    &--active {
+      border-bottom: 1px solid black;
+      &:first-child,
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }
 
-//Clicked button
-.active-button {
-  border-bottom: 1px solid black;
-  &:first-child,
-  &:last-child {
-    border-bottom: none;
+.add-city-form {
+  &--closed {
+    visibility: hidden;
+    height: 0;
+    width: 0;
   }
-}
-
-.form-state--closed {
-  visibility: hidden;
-  height: 0;
-  width: 0;
-  .form__label,
-  .radio-buttons,
-  .form-btn__submit {
-    margin-top: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.8rem;
+  &--open {
+    visibility: visible;
+    background: darken($color: $grey, $amount: 5%);
+    z-index: 1000;
+    font-size: 1.9rem;
+    position: fixed;
+    top: 20vh;
+    bottom: 20vh;
+    left: 30vw;
+    right: 30vw;
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .form__input {
+      border: none;
+      padding: 0.5rem;
+    }
+    .form__label,
+    .form__radio-buttons,
+    .form__submit {
+      margin-top: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .form__submit {
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 1rem 2.5rem;
+      font-size: 1.5rem;
+      background: darken($color: $grey, $amount: 10%);
+    }
+    .form__close {
+      background: darken($color: $grey, $amount: 5%);
+      &::before {
+        content: "\f100";
+        display: block;
+        position: relative;
+        left: 20rem;
+        bottom: 38rem;
+      }
+    }
   }
-  .form__input {
-    border: none;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-  }
-}
-.form-state--open {
-  visibility: visible;
-  // background: $grey;
-  background: darken($color: $grey, $amount: 5%);
-  z-index: 1000;
-  font-size: 1.8rem;
-  position: fixed;
-  top: 20vh;
-  bottom: 20vh;
-  left: 30vw;
-  right: 30vw;
-  height: auto;
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.form-btn__submit {
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 1rem 2.5rem;
-  margin: 1.5rem;
-  font-size: 1.3rem;
-  background: darken($color: $grey, $amount: 10%);
-}
-#close {
-  background: darken($color: $grey, $amount: 5%);
-}
-.form-btn__close::before {
-  content: "\f100";
-  display: block;
-  position: relative;
-  left: 20rem;
-  bottom: 38rem;
 }
 
 //Gallery

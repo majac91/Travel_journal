@@ -14,15 +14,13 @@ let activeBtn;
 let storedList;
 let form;
 let closeFormBtn;
-let navbar;
 
 function cacheDom() {
-  buttons = Array.from(document.querySelector(".buttons").children);
+  buttons = Array.from(document.querySelector(".display__buttons").children);
   visited = buttons[1];
   bucketlist = buttons[2];
   all = buttons[3];
   add = buttons[4];
-  navbar = document.querySelector(".navbar");
   gallery = document.querySelector(".gallery");
   activeBtn = null;
   form = document.getElementById("add-city-form");
@@ -36,8 +34,6 @@ function bindEvents() {
   add.addEventListener("click", openForm);
   closeFormBtn.addEventListener("click", closeForm);
   document.addEventListener("DOMContentLoaded", setActive);
-  // document.addEventListener("scroll", shrinkNav);
-  // window.addEventListener("scroll", restoreNav);
   events.subscribe("listRetreived", (list) => {
     storedList = list;
     render();
@@ -128,12 +124,12 @@ function setActive() {
       const current = event.target;
 
       if (activeBtn) {
-        activeBtn.classList.remove("active-button");
+        activeBtn.classList.remove("display__button--active");
         activeBtn.setAttribute("aria-pressed", false);
       }
 
       current.setAttribute("aria-pressed", true);
-      current.classList.add("active-button");
+      current.classList.add("display__button--active");
 
       activeBtn = current;
     });
@@ -158,25 +154,12 @@ function showAll() {
 }
 
 function openForm() {
-  form.classList.add("form-state--open");
+  form.classList.add("add-city-form--open");
 }
 
 function closeForm() {
-  form.classList.remove("form-state--open");
+  form.classList.remove("add-city-form--open");
 }
-
-//shrink header on scroll
-// function shrinkNav() {
-//   navbar.classList.add("navbar--shrink");
-// }
-
-// restore nav size on scroll up
-// function restoreNav() {
-//   const scrollPos = 0;
-//   if (document.body.getBoundingClientRect().top === scrollPos) {
-//     document.querySelector(".navbar").classList.remove("navbar--shrink");
-//   }
-// }
 
 function init() {
   cacheDom();
