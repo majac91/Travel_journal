@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="//db.onlinewebfonts.com/c/c862d8098ce50a7dc042ebbb9b94bbc8?family=TwCenW01-Medium"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="../icons/font/_flaticon.scss"
+      type="text/css"
+    />    
+    <link rel="stylesheet"  type="text/css" href="./styles/index.scss" />
+    <script
+      type="text/javascript"
+      src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
+    <title>places-been</title>
+  </head>
+  <body>
+    <!-- N A V B A R  -->
+    <nav class="navbar">
+      <div class="container container--space-between">
+        <a href="#" class="navbar__logo">
+          <h1 class="navbar__title">places been</h1>
+          <h2 class="navbar__subtitle">a travel journal</h2>
+        </a>
+        <ul class="navbar__links">
+          <li class="navbar__item">
+            <a class="navbar__link" href="#">About</a>
+          </li class="navbar__item">
+          <li>
+            <a class="navbar__link" href="#display__buttons">My places</a>
+          </li>
+          <li class="navbar__item">
+            <a class="navbar__link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- H E A D E R -->
+    <header class="header">
+      <img class="header__img" src="./images/sienna.jpg" alt="" />
+    </header>
+    <!-- F O R M  -->
+    <form
+      id="add-city-form"
+      class="add-city-form add-city-form--closed container"
+    >
+      <label class="form__label" for="inputCity" 
+        >City</label
+      >
+      <input
+        type="text"
+        name="text"
+        id="inputCity"
+        class="form__input"
+      />
+      <label
+        class="form__label"
+        for="inputCountry"
+        >Country</label
+      >
+      <input
+        type="text"
+        name="text"
+        id="inputCountry"
+        class="form__input"
+      />
+      <!-- add photo field-->
+      <label
+      class="form__label"
+      for="inputImg"
+      >Photo</label
+    >
+      <input type="file" id="inputImg" class="form__input form__file" />
+      <!-- radio buttons-->
+      <div class="form__radio-buttons">
+        <input
+          id="rd-visited"
+          type="radio"
+          name="btn"
+          value="Visited"
+          label="Visited"
+        />
+        <label for="rd-visited" >Visited</label>
+        <input
+          id="rd-bucketlist"
+          type="radio"
+          name="btn"
+          value="Bucketlist"
+          label="Bucketlist"
+        />
+        <label for="rd-bucketlist"
+          >Bucketlist</label
+        >
+      </div>
+      <!-- Upload button -->
+      <button type="submit" id="upload" class="form__submit">Upload</button>
+      <!-- Close button -->
+      <button
+        type="button"
+        id="close"
+        class="form__close flaticon-001-cancel-3"
+      ></button>
+    </form>
+
+    <!--M A I N - buttons-->
+    <div id="display__buttons" class="display__buttons container">
+      <span class="display__button button__view">My places:</span>
+      <button class="display__button button__visited" type="button">Visited</button>
+      <button class="display__button button__buckelist" type="button">Bucketlist</button>
+      <button class="display__button button__all" type="button">All</button>
+      <button
+        class="display__button button__add flaticon-016-add"
+        type="button"
+      ></button>
+    </div>
+
+    <!--M A I N - gallery-->
+    <main class="gallery container" id="gallery"></main>
+
+    <script type="text/javascript"  src="../src/index.js"></script>
+  </body>
+</html>
